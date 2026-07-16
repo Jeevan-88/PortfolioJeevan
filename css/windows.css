@@ -884,77 +884,14 @@
 
 /* ── HUD (Skip / Replay buttons) ── */
 #whoami-hud {
-    position: absolute;
-    bottom: 22px;
-    right: 22px;
-    display: flex;
-    gap: 10px;
-    z-index: 12;
+    display: none !important;
 }
 
 .whoami-btn {
-    padding: 9px 22px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    background: rgba(8, 12, 28, 0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: rgba(255, 255, 255, 0.75);
-    font-family: 'Outfit', 'Segoe UI', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    cursor: pointer;
-    transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
-}
-
-.whoami-btn:hover {
-    background: rgba(22, 34, 72, 0.8);
-    border-color: rgba(90, 140, 255, 0.35);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(70, 130, 255, 0.12);
+    display: none !important;
 }
 
 /* ── Name reveal overlay ── */
 #whoami-name-reveal {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    opacity: 0;
-    z-index: 5;
-    transition: opacity 1.6s ease;
-}
-
-#whoami-name-reveal.visible {
-    opacity: 1;
-}
-
-.whoami-name-text {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(18px, 4.2vw, 58px);
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.72);
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
-    text-shadow:
-        0 0 18px rgba(180, 210, 255, 0.28),
-        0 0 50px rgba(120, 170, 255, 0.12),
-        0 2px 4px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.035);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    padding: 18px 42px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow:
-        inset 0 0 30px rgba(255, 255, 255, 0.02),
-        0 8px 32px rgba(0, 0, 0, 0.2);
-}
-
-.whoami-name-char {
-    display: inline-block;
-    will-change: transform, opacity;
+    display: none !important;
 }
