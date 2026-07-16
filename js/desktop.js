@@ -1,6 +1,7 @@
 const desktop = document.querySelector(".desktop");
 let topZ = 6;
 let resetWhoamiSequence = () => {};
+let onTabChanged = () => {};
 
 function setStatus(message) {
     const status = document.getElementById("paint-status-text");
@@ -230,219 +231,362 @@ function makeDesktopIconsDraggable() {
 }
 
 function setupWhoamiSequence() {
-    const panel = document.querySelector('[data-browser-panel="whoami"]');
     const scrollContainer = document.querySelector(".browser-page");
-    const sequenceContainer = document.querySelector("[data-whoami-scroll]");
-    const spacer = document.querySelector(".whoami-scroll-sequence__spacer");
-    const canvas = document.getElementById("whoami-sequence-canvas");
-    const status = document.querySelector("[data-whoami-status]");
+    const panels = Array.from(document.querySelectorAll("[data-browser-panel]"));
 
-    if (!panel || !scrollContainer || !sequenceContainer || !spacer || !canvas) {
+    if (!scrollContainer || !panels.length) {
         return;
     }
 
-    const frameCount = 300;
-    const framePrefix = "whoami-frames/PortfolioAnimation_";
-    const frameSuffix = ".jpg";
-    const frameCache = new Map();
-    const loadingFrames = new Set();
-    const maxCacheSize = 14;
-    const context = canvas.getContext("2d", { alpha: false });
-    const devicePixelRatio = window.devicePixelRatio || 1;
-
-    let targetFrame = 0;
-    let activeFrame = -1;
-    let renderScheduled = false;
-    let resizeObserver = null;
-
-    function frameUrl(index) {
-        return `${framePrefix}${String(index).padStart(3, "0")}${frameSuffix}`;
-    }
-
-    function updateStatus(index) {
-        if (status) {
-            status.textContent = `Frame ${String(index + 1).padStart(3, "0")} of ${frameCount}`;
-        }
-    }
-
-    function fitCanvas() {
-        sequenceContainer.style.setProperty("--whoami-view-height", `${scrollContainer.clientHeight}px`);
-
-        const rect = canvas.getBoundingClientRect();
-        const nextWidth = Math.max(1, Math.round(rect.width * devicePixelRatio));
-        const nextHeight = Math.max(1, Math.round(rect.height * devicePixelRatio));
-
-        if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
-            canvas.width = nextWidth;
-            canvas.height = nextHeight;
-        }
-
-        context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-        context.imageSmoothingEnabled = true;
-        context.imageSmoothingQuality = "high";
-    }
-
-    function drawFrame(index) {
-        const image = frameCache.get(index);
-
-        fitCanvas();
-        context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-
-        if (!image || !image.complete || !image.naturalWidth || !image.naturalHeight) {
-            updateStatus(index);
-            return;
-        }
-
-        const canvasWidth = canvas.clientWidth;
-        const canvasHeight = canvas.clientHeight;
-        const imageRatio = image.naturalWidth / image.naturalHeight;
-        const canvasRatio = canvasWidth / canvasHeight;
-        let drawWidth = canvasWidth;
-        let drawHeight = canvasHeight;
-        let offsetX = 0;
-        let offsetY = 0;
-
-        if (imageRatio > canvasRatio) {
-            drawHeight = canvasHeight;
-            drawWidth = drawHeight * imageRatio;
-            offsetX = (canvasWidth - drawWidth) / 2;
-        } else {
-            drawWidth = canvasWidth;
-            drawHeight = drawWidth / imageRatio;
-            offsetY = (canvasHeight - drawHeight) / 2;
-        }
-
-        context.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
-        updateStatus(index);
-    }
-
-    function pruneCache() {
-        if (frameCache.size <= maxCacheSize) {
-            return;
-        }
-
-        const retainedFrames = Array.from(frameCache.keys())
-            .sort((left, right) => Math.abs(left - targetFrame) - Math.abs(right - targetFrame))
-            .slice(0, maxCacheSize);
-
-        frameCache.forEach((_, key) => {
-            if (!retainedFrames.includes(key)) {
-                frameCache.delete(key);
-            }
-        });
-    }
-
-    function loadFrame(index) {
-        const safeIndex = Math.max(0, Math.min(frameCount - 1, index));
-
-        if (frameCache.has(safeIndex)) {
-            return Promise.resolve(frameCache.get(safeIndex));
-        }
-
-        if (loadingFrames.has(safeIndex)) {
-            return Promise.resolve(null);
-        }
-
-        loadingFrames.add(safeIndex);
-
-        return new Promise((resolve) => {
-            const image = new Image();
-            image.decoding = "async";
-            image.src = frameUrl(safeIndex);
-
-            image.onload = () => {
-                loadingFrames.delete(safeIndex);
-                frameCache.set(safeIndex, image);
-                pruneCache();
-                resolve(image);
-            };
-
-            image.onerror = () => {
-                loadingFrames.delete(safeIndex);
-                resolve(null);
-            };
-        });
-    }
-
-    function preloadNearby(index) {
-        const preloadRadius = 5;
-
-        for (let offset = -preloadRadius; offset <= preloadRadius; offset += 1) {
-            loadFrame(index + offset);
-        }
-    }
-
-    function scheduleRender() {
-        if (renderScheduled) {
-            return;
-        }
-
-        renderScheduled = true;
-
-        requestAnimationFrame(() => {
-            renderScheduled = false;
-
-            if (activeFrame !== targetFrame) {
-                activeFrame = targetFrame;
-            }
-
-            drawFrame(activeFrame);
-        });
-    }
-
-    function updateFromScroll() {
-        const maxScroll = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-        const progress = maxScroll > 0 ? scrollContainer.scrollTop / maxScroll : 0;
-
-        targetFrame = Math.max(0, Math.min(frameCount - 1, Math.round(progress * (frameCount - 1))));
-        preloadNearby(targetFrame);
-        scheduleRender();
-    }
-
-    function resetSequence() {
-        scrollContainer.scrollTop = 0;
-        targetFrame = 0;
-        activeFrame = 0;
-        preloadNearby(0);
-        drawFrame(0);
-    }
-
-    resizeObserver = new ResizeObserver(() => {
-        if (panel.classList.contains("active")) {
-            drawFrame(activeFrame >= 0 ? activeFrame : targetFrame);
-        }
-    });
-
-    resizeObserver.observe(panel);
-
-    scrollContainer.style.setProperty("--whoami-frame-count", String(frameCount));
-    spacer.style.height = `${Math.max(2400, frameCount * 32)}px`;
-
-    scrollContainer.addEventListener("scroll", updateFromScroll, { passive: true });
-    window.addEventListener("resize", () => {
-        if (panel.classList.contains("active")) {
-            drawFrame(activeFrame >= 0 ? activeFrame : targetFrame);
-        }
-    });
-
-    new ResizeObserver(() => {
-        fitCanvas();
-        if (panel.classList.contains("active")) {
-            drawFrame(activeFrame >= 0 ? activeFrame : targetFrame);
-        }
-    }).observe(scrollContainer);
-
-    resetWhoamiSequence = () => {
-        requestAnimationFrame(resetSequence);
+    const tabFolders = {
+        whoami: "whoami",
+        about: "aboutme",
+        work: null,
+        projects: "projects",
+        skills: "skills",
+        experience: null,
+        contact: "connect",
+        resume: "resume",
+        links: null
     };
 
-    Promise.all([loadFrame(0), loadFrame(1), loadFrame(frameCount - 1)]).then(() => {
-        if (panel.classList.contains("active")) {
-            resetSequence();
-        } else {
-            updateStatus(0);
+    const tabIdsOrder = ["whoami", "about", "work", "projects", "skills", "experience", "contact", "resume", "links"];
+    const tabState = {};
+    let activeTab = "whoami";
+    let framesIndex = null;
+    let pathPrefix = "";
+    let loadingPromises = {};
+    let loopActive = true;
+    let touchStartY = 0;
+
+    // Initialize tab state objects and inject canvases
+    panels.forEach((panel) => {
+        const tabId = panel.dataset.browserPanel;
+        if (tabFolders[tabId] !== undefined && tabFolders[tabId] !== null) {
+            panel.classList.add("sequence-panel");
+            // Inject standard full-bleed wrapper, canvas, and spinner overlay
+            panel.innerHTML = `
+                <div class="sequence-panel-wrapper">
+                    <canvas class="sequence-canvas"></canvas>
+                    <div class="sequence-spinner-overlay">
+                        <div class="sequence-spinner"></div>
+                    </div>
+                </div>
+            `;
+            const canvasElement = panel.querySelector("canvas");
+            tabState[tabId] = {
+                progress: 0,
+                targetProgress: 0,
+                loaded: false,
+                canvas: canvasElement,
+                ctx: canvasElement.getContext("2d", { alpha: false }),
+                frameCount: 0,
+                images: []
+            };
         }
     });
+
+    // Fit canvas helper (Contain scale)
+    function fitCanvas(state) {
+        const canvasElement = state.canvas;
+        const rect = canvasElement.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        const w = Math.max(1, Math.round(rect.width * dpr));
+        const h = Math.max(1, Math.round(rect.height * dpr));
+
+        if (canvasElement.width !== w || canvasElement.height !== h) {
+            canvasElement.width = w;
+            canvasElement.height = h;
+        }
+    }
+
+    // Draw active frame (Contain scale)
+    function drawFrame(tabId) {
+        const state = tabState[tabId];
+        if (!state || !state.loaded || state.images.length === 0) {
+            return;
+        }
+
+        const total = state.frameCount;
+        const index = Math.max(0, Math.min(total - 1, Math.floor(state.progress * (total - 1))));
+        const image = state.images[index];
+
+        if (!image || !image.complete || !image.naturalWidth || !image.naturalHeight) {
+            return;
+        }
+
+        fitCanvas(state);
+
+        const canvasWidth = state.canvas.width;
+        const canvasHeight = state.canvas.height;
+        const imgWidth = image.naturalWidth;
+        const imgHeight = image.naturalHeight;
+
+        const canvasRatio = canvasWidth / canvasHeight;
+        const imgRatio = imgWidth / imgHeight;
+
+        let drawWidth, drawHeight, drawX, drawY;
+
+        if (canvasRatio > imgRatio) {
+            // Canvas is wider than Image (fit height)
+            drawHeight = canvasHeight;
+            drawWidth = canvasHeight * imgRatio;
+            drawX = (canvasWidth - drawWidth) / 2;
+            drawY = 0;
+        } else {
+            // Canvas is taller than Image (fit width)
+            drawWidth = canvasWidth;
+            drawHeight = canvasWidth / imgRatio;
+            drawX = 0;
+            drawY = (canvasHeight - drawHeight) / 2;
+        }
+
+        state.ctx.fillStyle = "#050810";
+        state.ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        state.ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
+    }
+
+    // Loader helper using requestIdleCallback/timeouts for low priority background loading
+    function loadTabImages(tabId, files, concurrency) {
+        const state = tabState[tabId];
+        const folder = tabFolders[tabId];
+        const total = files.length;
+
+        return new Promise((resolve) => {
+            if (total === 0) {
+                resolve();
+                return;
+            }
+
+            state.images.length = total;
+            let nextIndex = 0;
+            let completed = 0;
+
+            function launchNext() {
+                if (nextIndex >= total) return;
+
+                const index = nextIndex++;
+                const img = new Image();
+                img.src = `${pathPrefix}${folder}/${files[index]}`;
+
+                img.onload = () => {
+                    state.images[index] = img;
+                    completed++;
+                    if (completed === total) {
+                        resolve();
+                    } else {
+                        // Yield execution slightly for low-priority background loading
+                        if (concurrency <= 4) {
+                            setTimeout(launchNext, 2);
+                        } else {
+                            launchNext();
+                        }
+                    }
+                };
+                img.onerror = () => {
+                    state.images[index] = null;
+                    completed++;
+                    if (completed === total) {
+                        resolve();
+                    } else {
+                        launchNext();
+                    }
+                };
+            }
+
+            const startCount = Math.min(concurrency, total);
+            for (let i = 0; i < startCount; i++) {
+                launchNext();
+            }
+        });
+    }
+
+    // Preload coordinator
+    function preloadTab(tabId, priority = "low") {
+        if (!tabState[tabId] || tabState[tabId].loaded) {
+            return Promise.resolve();
+        }
+
+        if (loadingPromises[tabId]) {
+            return loadingPromises[tabId];
+        }
+
+        const files = framesIndex[tabFolders[tabId]] || [];
+        tabState[tabId].frameCount = files.length;
+
+        const concurrency = priority === "high" ? 30 : 4;
+
+        const promise = loadTabImages(tabId, files, concurrency).then(() => {
+            tabState[tabId].loaded = true;
+            delete loadingPromises[tabId];
+
+            // Hide spinner overlay
+            const panel = document.querySelector(`[data-browser-panel="${tabId}"]`);
+            if (panel) {
+                const overlay = panel.querySelector(".sequence-spinner-overlay");
+                if (overlay) {
+                    overlay.style.opacity = "0";
+                    setTimeout(() => {
+                        overlay.style.display = "none";
+                      }, 300);
+                }
+            }
+
+            // Render first frame
+            drawFrame(tabId);
+
+            // Trigger background loading of the next likely tab
+            preloadNextLikelyTab();
+        });
+
+        loadingPromises[tabId] = promise;
+        return promise;
+    }
+
+    // Background loader scheduler
+    function preloadNextLikelyTab() {
+        const startIndex = tabIdsOrder.indexOf(activeTab);
+        if (startIndex === -1) return;
+
+        for (let i = 1; i < tabIdsOrder.length; i++) {
+            const nextIndex = (startIndex + i) % tabIdsOrder.length;
+            const nextTabId = tabIdsOrder[nextIndex];
+            const folder = tabFolders[nextTabId];
+
+            if (folder && tabState[nextTabId] && !tabState[nextTabId].loaded && !loadingPromises[nextTabId]) {
+                preloadTab(nextTabId, "low");
+                break;
+            }
+        }
+    }
+
+    // Tab switcher listener
+    onTabChanged = (tabId) => {
+        activeTab = tabId;
+        const state = tabState[tabId];
+
+        if (state) {
+            if (!state.loaded) {
+                const panel = document.querySelector(`[data-browser-panel="${tabId}"]`);
+                if (panel) {
+                    const overlay = panel.querySelector(".sequence-spinner-overlay");
+                    if (overlay) {
+                        overlay.style.display = "flex";
+                        overlay.style.opacity = "1";
+                    }
+                }
+                preloadTab(tabId, "high");
+            } else {
+                drawFrame(tabId);
+                preloadNextLikelyTab();
+            }
+        }
+    };
+
+    // Reset sequence is used by activateTab("whoami")
+    resetWhoamiSequence = () => {
+        const state = tabState["whoami"];
+        if (state) {
+            state.targetProgress = 0;
+            state.progress = 0;
+            drawFrame("whoami");
+        }
+    };
+
+    // Continuous LERP Loop
+    function animationLoop() {
+        if (!loopActive) return;
+        requestAnimationFrame(animationLoop);
+
+        const state = tabState[activeTab];
+        if (state && state.loaded) {
+            const diff = state.targetProgress - state.progress;
+            if (Math.abs(diff) > 0.0001) {
+                state.progress += diff * 0.12; // Lerp smoothing
+                drawFrame(activeTab);
+            }
+        }
+    }
+
+    // Scroll scrubbing event handlers
+    function onWheel(e) {
+        const state = tabState[activeTab];
+        if (!state || !state.loaded) return;
+
+        e.preventDefault();
+
+        // Speed proportional to number of frames (keeps scroll velocity uniform)
+        const scrollStep = 12 / state.frameCount;
+        const delta = (e.deltaY / 100) * scrollStep;
+
+        state.targetProgress += delta;
+        state.targetProgress = Math.max(0, Math.min(1, state.targetProgress));
+    }
+
+    function onTouchStart(e) {
+        if (e.touches.length > 0) {
+            touchStartY = e.touches[0].clientY;
+        }
+    }
+
+    function onTouchMove(e) {
+        const state = tabState[activeTab];
+        if (!state || !state.loaded) return;
+
+        e.preventDefault();
+
+        const currentY = e.touches[0].clientY;
+        const deltaY = touchStartY - currentY;
+        touchStartY = currentY;
+
+        const scrollStep = 12 / state.frameCount;
+        const delta = (deltaY / 50) * scrollStep * 1.5;
+
+        state.targetProgress += delta;
+        state.targetProgress = Math.max(0, Math.min(1, state.targetProgress));
+    }
+
+    // Window resize handler
+    window.addEventListener("resize", () => {
+        if (tabState[activeTab]) {
+            drawFrame(activeTab);
+        }
+    });
+
+    // Load frames index and boot (dynamic auto-prefix lookup)
+    fetch("public/frames-index.json")
+        .then((res) => {
+            pathPrefix = "public/";
+            return res.json();
+        })
+        .catch(() => {
+            pathPrefix = "";
+            return fetch("frames-index.json").then((res) => res.json());
+        })
+        .then((data) => {
+            framesIndex = data;
+
+            const activePanel = document.querySelector(".browser-panel.active");
+            if (activePanel) {
+                const activeTabId = activePanel.dataset.browserPanel;
+                if (tabState[activeTabId]) {
+                    activeTab = activeTabId;
+                    preloadTab(activeTabId, "high");
+                } else {
+                    preloadNextLikelyTab();
+                }
+            }
+
+            animationLoop();
+        })
+        .catch((err) => {
+            console.error("Failed to load image sequence index:", err);
+        });
+
+    // Bind scroll scrubbing to scrollContainer (.browser-page)
+    scrollContainer.addEventListener("wheel", onWheel, { passive: false });
+    scrollContainer.addEventListener("touchstart", onTouchStart, { passive: true });
+    scrollContainer.addEventListener("touchmove", onTouchMove, { passive: false });
 }
 
 function setupPaintApp() {
@@ -847,6 +991,10 @@ function setupDeployBrowser() {
 
         if (tabId === "whoami") {
             resetWhoamiSequence();
+        }
+
+        if (typeof onTabChanged === "function") {
+            onTabChanged(tabId);
         }
 
         if (shouldTrack && history[historyIndex] !== tabId) {

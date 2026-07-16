@@ -803,95 +803,73 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   WHOAMI TAB — Cinematic 3D Train Journey
+   MULTIPANEL IMAGE SEQUENCE STYLES
    ═══════════════════════════════════════════════════════════════ */
 
-/* Override default panel padding to go full-bleed */
-.whoami-panel {
-    padding: 0 !important;
+/* Disable native scrollbars and scrolling inside the main browser page */
+.browser-page {
     overflow: hidden !important;
 }
 
-.browser-panel.whoami-panel.active {
+/* Full-bleed responsive styling for sequence-active tabs */
+.browser-panel.sequence-panel {
+    display: none !important;
+}
+
+.browser-panel.sequence-panel.active {
     display: block !important;
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #050810;
+}
+
+/* Sequence full-bleed canvas wrappers */
+.sequence-panel-wrapper {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-}
-
-/* ── Canvas container ── */
-#whoami-canvas-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
     background: #050810;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
-#whoami-canvas {
+.sequence-canvas {
     display: block;
     width: 100%;
     height: 100%;
 }
 
-/* ── Cinematic vignette overlay ── */
-.whoami-vignette {
+/* Minimal non-textual loading indicator overlay */
+.sequence-spinner-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-        ellipse 70% 65% at 50% 50%,
-        transparent 40%,
-        rgba(3, 4, 10, 0.5) 100%
-    );
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* ── Loading screen ── */
-#whoami-loading {
-    position: absolute;
-    inset: 0;
+    background: #050810;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 18px;
-    background: #050810;
-    z-index: 30;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
-.whoami-spinner {
-    width: 38px;
-    height: 38px;
+.sequence-spinner {
+    width: 34px;
+    height: 34px;
     border: 3px solid rgba(255, 255, 255, 0.08);
-    border-top-color: rgba(100, 160, 255, 0.65);
+    border-top-color: rgba(100, 160, 255, 0.75);
     border-radius: 50%;
-    animation: whoami-spin 0.75s linear infinite;
+    animation: sequence-spin 0.75s linear infinite;
 }
 
-@keyframes whoami-spin {
+@keyframes sequence-spin {
     to { transform: rotate(360deg); }
 }
 
-#whoami-loading span {
-    color: rgba(255, 255, 255, 0.4);
-    font-family: 'Outfit', 'Segoe UI', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-}
-
-/* ── HUD (Skip / Replay buttons) ── */
-#whoami-hud {
-    display: none !important;
-}
-
-.whoami-btn {
-    display: none !important;
-}
-
-/* ── Name reveal overlay ── */
-#whoami-name-reveal {
-    display: none !important;
-}
