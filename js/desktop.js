@@ -325,17 +325,17 @@ function setupWhoamiSequence() {
         let drawWidth, drawHeight, drawX, drawY;
 
         if (canvasRatio > imgRatio) {
-            // Canvas is wider than Image (fit height)
-            drawHeight = canvasHeight;
-            drawWidth = canvasHeight * imgRatio;
-            drawX = (canvasWidth - drawWidth) / 2;
-            drawY = 0;
-        } else {
-            // Canvas is taller than Image (fit width)
+            // Canvas is wider than Image (crop top/bottom to fill width)
             drawWidth = canvasWidth;
             drawHeight = canvasWidth / imgRatio;
             drawX = 0;
             drawY = (canvasHeight - drawHeight) / 2;
+        } else {
+            // Canvas is taller than Image (crop left/right to fill height)
+            drawHeight = canvasHeight;
+            drawWidth = canvasHeight * imgRatio;
+            drawX = (canvasWidth - drawWidth) / 2;
+            drawY = 0;
         }
 
         state.ctx.fillStyle = "#050810";
