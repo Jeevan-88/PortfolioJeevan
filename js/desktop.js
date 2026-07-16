@@ -241,16 +241,13 @@ function setupWhoamiSequence() {
     const tabFolders = {
         whoami: "whoami",
         about: "aboutme",
-        work: null,
         projects: "projects",
         skills: "skills",
-        experience: null,
-        contact: "connect",
         resume: "resume",
-        links: null
+        contact: "connect"
     };
 
-    const tabIdsOrder = ["whoami", "about", "work", "projects", "skills", "experience", "contact", "resume", "links"];
+    const tabIdsOrder = ["whoami", "about", "projects", "skills", "resume", "contact"];
     const tabState = {};
     let activeTab = "whoami";
     let framesIndex = null;

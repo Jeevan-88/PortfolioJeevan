@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const folders = ['whoami', 'aboutme', 'work', 'projects', 'skills', 'experience', 'connect', 'resume', 'links'];
+const folders = ['whoami', 'aboutme', 'projects', 'skills', 'resume', 'connect'];
 const index = {};
 
 folders.forEach(folder => {
