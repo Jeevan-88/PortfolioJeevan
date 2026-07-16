@@ -1,0 +1,169 @@
+.taskbar {
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+
+    width: 100%;
+    height: 58px;
+
+    background: linear-gradient(180deg, rgba(38, 93, 197, .92), rgba(19, 73, 173, .96) 48%, rgba(11, 46, 129, .98));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), 0 -10px 24px rgba(0, 0, 0, .22);
+    backdrop-filter: blur(14px);
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+
+    padding: 0 12px 0 0;
+
+    border-top: 1px solid rgba(255, 255, 255, .32);
+
+}
+
+.start {
+    height: 100%;
+    min-width: 128px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    font-style: italic;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .55);
+
+    cursor: pointer;
+    border: 0;
+    border-radius: 0 26px 26px 0;
+    background: linear-gradient(180deg, #69c75f, #2d9d35 50%, #167c25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 3px 0 12px rgba(0, 0, 0, .25);
+
+}
+
+.start:hover {
+    background: linear-gradient(180deg, #7bda71, #35ab3d 50%, #19882a);
+}
+
+.start-mark {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    border-radius: 6px;
+    background:
+        linear-gradient(90deg, transparent 46%, rgba(255, 255, 255, .88) 46%, rgba(255, 255, 255, .88) 54%, transparent 54%),
+        linear-gradient(0deg, transparent 46%, rgba(255, 255, 255, .88) 46%, rgba(255, 255, 255, .88) 54%, transparent 54%),
+        linear-gradient(135deg, #f1543f 0 25%, #54b948 25% 50%, #2b7de9 50% 75%, #ffd447 75%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+}
+
+.taskbar-apps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    flex: 1;
+}
+
+.taskbar-icon {
+    width: 48px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .18), rgba(255, 255, 255, .04));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25);
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.taskbar-icon:hover {
+    background: linear-gradient(180deg, rgba(255, 255, 255, .32), rgba(255, 255, 255, .1));
+}
+
+.taskbar-icon.active {
+    border-color: rgba(255, 255, 255, .42);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .36), rgba(255, 255, 255, .14));
+}
+
+.taskbar-icon img {
+    width: 31px;
+    height: 31px;
+    object-fit: contain;
+}
+
+.taskbar-window {
+    width: auto;
+    min-width: 114px;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+.taskbar-window span {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.system {
+    height: 100%;
+    min-width: 142px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 20px;
+
+    color: #fff;
+
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .45);
+    padding: 0 18px;
+    margin-left: auto;
+    background: linear-gradient(180deg, rgba(55, 165, 231, .88), rgba(16, 118, 203, .92));
+    border-left: 1px solid rgba(255, 255, 255, .28);
+
+}
+
+.status-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #55f28a;
+    box-shadow: 0 0 10px rgba(85, 242, 138, .85);
+}
+
+@media (max-width: 560px) {
+    .taskbar {
+        height: 54px;
+        gap: 8px;
+    }
+
+    .start {
+        min-width: 96px;
+        font-size: 17px;
+    }
+
+    .taskbar-icon {
+        width: 42px;
+        height: 40px;
+    }
+
+    .system {
+        min-width: 96px;
+        padding: 0 10px;
+        font-size: 14px;
+    }
+}

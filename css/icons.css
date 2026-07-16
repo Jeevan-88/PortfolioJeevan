@@ -1,0 +1,103 @@
+/* ===========================
+   Desktop Icons
+=========================== */
+
+.desktop-icons {
+    position: absolute;
+    top: 40px;
+    left: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 25px;
+    z-index: 2;
+}
+
+.desktop-icons.drag-mode {
+    inset: 0;
+    width: 100%;
+    height: calc(100% - 58px);
+    display: block;
+}
+
+.icon {
+    width: 100px;
+    min-height: 112px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px;
+    border-radius: 10px;
+
+    cursor: pointer;
+    user-select: none;
+    touch-action: none;
+    border: 1px solid transparent;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+
+    transition: background .2s, border-color .2s, transform .2s;
+}
+
+.icon.dragging {
+    position: absolute;
+    z-index: 7;
+    transform: scale(1.03);
+}
+
+/* Default icon size */
+.icon img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+/* Computer icon slightly bigger */
+.computer img {
+    width: 82px;
+    height: 82px;
+}
+
+/* Folder icon */
+.folder img {
+    width: 74px;
+    height: 74px;
+}
+
+/* Paint icon */
+.paint img {
+    width: 74px;
+    height: 74px;
+}
+
+/* Windows hover */
+.icon:hover {
+    background: rgba(255, 255, 255, .12);
+    border-color: rgba(255, 255, 255, .2);
+    transform: translateY(-1px);
+}
+
+/* Selected icon */
+.icon:focus-visible,
+.icon.selected {
+    background: rgba(0, 120, 215, .25);
+    outline: 1px solid rgba(255, 255, 255, .35);
+}
+
+.icon span {
+    margin-top: 8px;
+
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, .8);
+}

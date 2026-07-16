@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio OS</title>
+  <link rel="stylesheet" crossorigin href="/assets/index-Kg-NgbK6.css">
+</head>
+<body>
+    <main class="desktop" aria-label="Portfolio desktop">
+        <section class="desktop-icons" aria-label="Desktop shortcuts">
+            <a class="icon computer" href="pages/computer.html">
+                <img src="/assets/computer-BxjBW2Me.png" alt="">
+                <span>Computer</span>
+            </a>
+
+            <button class="icon" type="button" data-open-window="browser-window">
+                <img src="/assets/browser-Dfj6PCmg.png" alt="">
+                <span>Browser</span>
+            </button>
+
+            <a class="icon folder" href="pages/folder.html">
+                <img src="/assets/folder-CwYOfnYk.png" alt="">
+                <span>Projects</span>
+            </a>
+
+            <button class="icon paint" type="button" data-open-window="paint-window">
+                <img src="/assets/paint-BDwobERW.png" alt="">
+                <span>Paint</span>
+            </button>
+        </section>
+
+        <section class="browser-window maximized" id="browser-window" aria-label="Deploy browser" hidden>
+            <header class="browser-titlebar" data-drag-handle>
+                <div class="browser-title">
+                    <img src="/assets/browser-Dfj6PCmg.png" alt="">
+                    <span>Deploy</span>
+                </div>
+                <div class="browser-window-brand">Deploy Browser</div>
+                <div class="paint-controls" aria-label="Browser window controls">
+                    <button type="button" aria-label="Minimize" data-minimize-window="browser-window">_</button>
+                    <button type="button" aria-label="Maximize" data-maximize-window="browser-window">[]</button>
+                    <button type="button" aria-label="Close" data-close-window="browser-window">X</button>
+                </div>
+            </header>
+
+            <div class="browser-tabs" aria-label="Deploy tabs">
+                <button class="active" type="button" data-browser-tab="home" data-browser-url="www.deploy.com">Deploy</button>
+                <button type="button" data-browser-tab="whoami" data-browser-url="www.whoami.com">Whoami</button>
+                <button type="button" data-browser-tab="about" data-browser-url="www.aboutme.com">About Me</button>
+                <button type="button" data-browser-tab="work" data-browser-url="www.mywork.com">My Work</button>
+                <button type="button" data-browser-tab="projects" data-browser-url="www.projects.com">Projects</button>
+                <button type="button" data-browser-tab="skills" data-browser-url="www.skills.com">Skills</button>
+                <button type="button" data-browser-tab="experience" data-browser-url="www.experience.com">Experience</button>
+                <button type="button" data-browser-tab="contact" data-browser-url="www.contactme.com">Contact Me</button>
+                <button type="button" data-browser-tab="resume" data-browser-url="www.resume.com">Resume</button>
+                <button type="button" data-browser-tab="links" data-browser-url="www.links.com">Links</button>
+            </div>
+
+            <form class="browser-toolbar" id="deploy-search-form">
+                <button type="button" data-browser-action="back" aria-label="Back">&lt;</button>
+                <button type="button" data-browser-action="forward" aria-label="Forward">&gt;</button>
+                <button type="button" data-browser-action="refresh" aria-label="Refresh">R</button>
+                <button type="button" data-browser-action="home" aria-label="Home">H</button>
+                <input id="deploy-address" type="search" value="www.deploy.com" aria-label="Deploy address and search">
+                <button type="submit">Search</button>
+            </form>
+
+            <div class="browser-page">
+                <section class="deploy-home browser-panel active" data-browser-panel="home">
+                    <h1>DEPLOY</h1>
+                    <form class="deploy-search" id="deploy-home-search-form">
+                        <input id="deploy-home-search" type="search" placeholder="Search this portfolio">
+                        <button type="submit">Deploy Search</button>
+                    </form>
+                    <p id="deploy-search-output">Your private portfolio browser is ready.</p>
+                </section>
+
+                <section class="browser-panel whoami-video-panel" data-browser-panel="whoami">
+                    <div class="whoami-video-shell">
+                        <div class="whoami-scroll-sequence" data-whoami-scroll>
+                            <div class="whoami-scroll-sequence__sticky">
+                                <canvas id="whoami-sequence-canvas" class="whoami-sequence-canvas" aria-label="Whoami animation sequence"></canvas>
+
+                                <div class="whoami-video-overlay">
+                                    <span>Whoami chapter</span>
+                                    <h2>Train scene, character reveal, and cinematic intro</h2>
+                                    <p>Scroll inside this panel to move frame by frame through the image sequence. The first section stays locked to the opening train scene.</p>
+                                    <strong data-whoami-status>Loading frames...</strong>
+                                </div>
+                            </div>
+
+                            <div class="whoami-scroll-sequence__spacer" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="browser-panel" data-browser-panel="about">
+                    <h2>About Me</h2>
+                    <span class="browser-url-tag">www.aboutme.com</span>
+                    <p>Placeholder tab for your story, background, and current focus.</p>
+                </section>
+
+                <section class="browser-panel" data-browser-panel="work">
+                    <h2>My Work</h2>
+                    <span class="browser-url-tag">www.mywork.com</span>
+                    <p>Placeholder tab for featured work and case studies.</p>
+                </section>
+
+                <section class="browser-panel" data-browser-panel="projects">
+                    <h2>Projects</h2>
+                    <span class="browser-url-tag">www.projects.com</span>
+                    <p>Placeholder tab for project cards, demos, and source links.</p>
+                </section>
+
+                <section class="browser-panel" data-browser-panel="skills">
+                    <h2>Skills</h2>
+                    <span class="browser-url-tag">www.skills.com</span>
+                    <p>Placeholder tab for technical stack, tools, and strengths.</p>
+                </section>
+
+                <section class="browser-panel" data-browser-panel="experience">
+                    <h2>Experience</h2>
+                    <span class="browser-url-tag">www.experience.com</span>
+                    <p>Placeholder tab for education, roles, internships, and milestones.</p>
+                </section>
+
+                <section class="browser-panel" data-browser-panel="contact">
+                    <h2>Contact Me</h2>
+                    <span class="browser-url-tag">www.contactme.com</span>
+                    <p>Placeholder tab for email, socials, and contact form.</p>
+                </section>
+
+                <section class="browser-panel" data-browser-panel="resume">
+                    <h2>Resume</h2>
+                    <span class="browser-url-tag">www.resume.com</span>
+                    <p>Placeholder tab for resume preview and download action.</p>
+                </section>
+
+                <section class="browser-panel" data-browser-panel="links">
+                    <h2>Links</h2>
+                    <span class="browser-url-tag">www.links.com</span>
+                    <p>Placeholder tab for GitHub, LinkedIn, portfolio links, and other profiles.</p>
+                </section>
+            </div>
+        </section>
+
+        <section class="paint-window" id="paint-window" aria-label="Paint window">
+            <header class="paint-titlebar" data-drag-handle>
+                <div class="paint-title">
+                    <img src="/assets/paint-BDwobERW.png" alt="">
+                    <span>untitled - Paint</span>
+                </div>
+                <div class="paint-controls" aria-label="Window controls">
+                    <button type="button" aria-label="Minimize" data-minimize-window="paint-window">_</button>
+                    <button type="button" aria-label="Maximize" data-maximize-window="paint-window">[]</button>
+                    <button type="button" aria-label="Close" data-close-window="paint-window">X</button>
+                </div>
+            </header>
+
+            <nav class="paint-menu" aria-label="Paint menu">
+                <button type="button" data-paint-action="load">File</button>
+                <button type="button" data-paint-action="undo">Edit</button>
+                <button type="button" data-paint-action="zoom">View</button>
+                <button type="button" data-paint-action="delete-image">Image</button>
+                <button type="button" data-paint-action="download">Options</button>
+                <button type="button" data-paint-action="help">Help</button>
+            </nav>
+
+            <div class="paint-body">
+                <aside class="paint-tools" aria-label="Paint tools">
+                    <button type="button" data-tool="pencil" aria-label="Pencil">P</button>
+                    <button type="button" data-tool="brush" aria-label="Brush">B</button>
+                    <button type="button" data-tool="eraser" aria-label="Eraser">E</button>
+                    <button type="button" data-tool="fill" aria-label="Fill">F</button>
+                    <button type="button" data-tool="picker" aria-label="Color picker">I</button>
+                    <button type="button" data-tool="text" aria-label="Text">A</button>
+                    <button type="button" data-tool="line" aria-label="Line">/</button>
+                    <button type="button" data-tool="rect" aria-label="Rectangle">R</button>
+                    <button type="button" data-tool="ellipse" aria-label="Ellipse">O</button>
+                    <button type="button" data-paint-action="undo" aria-label="Undo">U</button>
+                    <button type="button" data-paint-action="clear" aria-label="Clear">C</button>
+                    <button type="button" data-paint-action="load" aria-label="Add image">+</button>
+                    <button type="button" data-paint-action="delete-image" aria-label="Delete image">X</button>
+                    <button type="button" data-paint-action="download" aria-label="Download">S</button>
+                    <button type="button" data-paint-action="zoom" aria-label="Zoom">Z</button>
+                    <button type="button" data-paint-action="help" aria-label="Help">?</button>
+                </aside>
+
+                <div class="paint-workspace">
+                    <div class="paint-scroll paint-scroll-y">
+                        <span></span>
+                    </div>
+
+                    <figure class="paint-canvas">
+                        <canvas id="paint-canvas" width="900" height="560" data-image-src="assets/profile/founder.jpeg" data-fallback-src="assets/wallpaper/wallpaper-night.png"></canvas>
+                    </figure>
+
+                    <div class="paint-scroll paint-scroll-x">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paint-colors" aria-label="Paint color palette">
+                <div class="paint-current-colors">
+                    <span id="primary-color-preview"></span>
+                    <span></span>
+                </div>
+                <div class="paint-swatches">
+                    <button class="active" style="--swatch:#000000" type="button" aria-label="Black"></button>
+                    <button style="--swatch:#ffffff" type="button" aria-label="White"></button>
+                    <button style="--swatch:#808080" type="button" aria-label="Gray"></button>
+                    <button style="--swatch:#c0c0c0" type="button" aria-label="Silver"></button>
+                    <button style="--swatch:#800000" type="button" aria-label="Maroon"></button>
+                    <button style="--swatch:#ff0000" type="button" aria-label="Red"></button>
+                    <button style="--swatch:#808000" type="button" aria-label="Olive"></button>
+                    <button style="--swatch:#ffff00" type="button" aria-label="Yellow"></button>
+                    <button style="--swatch:#008000" type="button" aria-label="Green"></button>
+                    <button style="--swatch:#00ff00" type="button" aria-label="Lime"></button>
+                    <button style="--swatch:#008080" type="button" aria-label="Teal"></button>
+                    <button style="--swatch:#00ffff" type="button" aria-label="Cyan"></button>
+                    <button style="--swatch:#000080" type="button" aria-label="Navy"></button>
+                    <button style="--swatch:#0000ff" type="button" aria-label="Blue"></button>
+                    <button style="--swatch:#800080" type="button" aria-label="Purple"></button>
+                    <button style="--swatch:#ff00ff" type="button" aria-label="Magenta"></button>
+                    <button style="--swatch:#808040" type="button" aria-label="Moss"></button>
+                    <button style="--swatch:#ffff80" type="button" aria-label="Light yellow"></button>
+                    <button style="--swatch:#408080" type="button" aria-label="Sea"></button>
+                    <button style="--swatch:#80ffff" type="button" aria-label="Light cyan"></button>
+                    <button style="--swatch:#004080" type="button" aria-label="Deep blue"></button>
+                    <button style="--swatch:#8080ff" type="button" aria-label="Light blue"></button>
+                    <button style="--swatch:#804000" type="button" aria-label="Brown"></button>
+                    <button style="--swatch:#ff8040" type="button" aria-label="Orange"></button>
+                </div>
+            </div>
+
+            <footer class="paint-status">
+                <span id="paint-status-text">Pencil selected. Drag on the image to draw.</span>
+                <span id="paint-zoom-status">100%</span>
+            </footer>
+            <input id="paint-file-input" type="file" accept="image/*" hidden>
+        </section>
+
+        <footer class="taskbar" aria-label="Taskbar">
+            <button class="start" type="button">
+                <span class="start-mark"></span>
+                <span>Start</span>
+            </button>
+
+            <nav class="taskbar-apps" aria-label="Pinned apps">
+                <a class="taskbar-icon" href="pages/computer.html" aria-label="Computer">
+                    <img src="/assets/computer-BxjBW2Me.png" alt="">
+                </a>
+                <button class="taskbar-icon" type="button" data-restore-window="browser-window" aria-label="Deploy Browser">
+                    <img src="/assets/browser-Dfj6PCmg.png" alt="">
+                </button>
+                <a class="taskbar-icon" href="pages/folder.html" aria-label="Projects">
+                    <img src="/assets/folder-CwYOfnYk.png" alt="">
+                </a>
+                <button class="taskbar-icon taskbar-window active" type="button" data-restore-window="paint-window" aria-label="Paint">
+                    <img src="/assets/paint-BDwobERW.png" alt="">
+                    <span>Paint</span>
+                </button>
+            </nav>
+
+            <div class="system" aria-label="Status area">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span id="clock" aria-live="polite"></span>
+            </div>
+        </footer>
+    </main>
+
+    <script src="js/clock.js"></script>
+    <script src="js/desktop.js"></script>
+</body>
+</html>
