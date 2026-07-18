@@ -25,7 +25,7 @@
     const ctx = canvas.getContext('2d');
 
     /* ── Constants ── */
-    const TOTAL_FRAMES     = 218;
+    const TOTAL_FRAMES     = 219;
     const FRAME_DIR        = window.location.protocol === 'file:' ? 'public/whoami-frames/' : 'whoami-frames/';
     const FRAME_PREFIX     = 'PortfolioAnimation_';
     const SCROLL_SPEED     = 0.35; // Sensitivity of scrolling
@@ -94,15 +94,7 @@
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
 
-        const scale = Math.min(canvasWidth / img.naturalWidth, canvasHeight / img.naturalHeight);
-        const width = img.naturalWidth * scale;
-        const height = img.naturalHeight * scale;
-        const x = (canvasWidth - width) / 2;
-        const y = (canvasHeight - height) / 2;
-
-        ctx.fillStyle = "#050810";
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-        ctx.drawImage(img, x, y, width, height);
+        ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
     }
 
     /* ═══════════════════════════════════
