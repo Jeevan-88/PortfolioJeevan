@@ -7,28 +7,36 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" crossorigin href="/assets/index-CGFe8A-T.css">
+    <link rel="stylesheet" href="css/desktop.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/taskbar.css">
+    <link rel="stylesheet" href="css/windows.css">
+    <link rel="stylesheet" href="css/phone-ui.css">
+    <link rel="stylesheet" href="css/laptop-ui.css">
+    <link rel="stylesheet" href="css/skills-ui.css">
+    <link rel="stylesheet" href="css/resume-ui.css">
+    <link rel="stylesheet" href="css/ctf-game.css">
 </head>
 <body>
     <main class="desktop" aria-label="Portfolio desktop">
         <section class="desktop-icons" aria-label="Desktop shortcuts">
             <button class="icon computer" type="button" data-open-window="computer-window">
-                <img src="/assets/computer-BxjBW2Me.png" alt="">
+                <img src="assets/icons/computer.png" alt="">
                 <span>My Computer</span>
             </button>
 
             <button class="icon" type="button" data-open-window="browser-window">
-                <img src="/assets/browser-Dfj6PCmg.png" alt="">
+                <img src="assets/icons/browser.png" alt="">
                 <span>Browser</span>
             </button>
 
             <button class="icon folder" type="button" data-open-window="folder-window">
-                <img src="/assets/folder-CwYOfnYk.png" alt="">
+                <img src="assets/icons/folder.png" alt="">
                 <span>Claim Folder</span>
             </button>
 
             <button class="icon paint" type="button" data-open-window="paint-window">
-                <img src="/assets/paint-BDwobERW.png" alt="">
+                <img src="assets/icons/paint.png" alt="">
                 <span>Paint</span>
             </button>
         </section>
@@ -36,7 +44,7 @@
         <section class="browser-window maximized" id="browser-window" aria-label="Deploy browser" hidden>
             <header class="browser-titlebar" data-drag-handle>
                 <div class="browser-title">
-                    <img src="/assets/browser-Dfj6PCmg.png" alt="">
+                    <img src="assets/icons/browser.png" alt="">
                     <span>Deploy</span>
                 </div>
                 <div class="browser-window-brand">Deploy Browser</div>
@@ -76,23 +84,10 @@
                     <p id="deploy-search-output">Your private portfolio browser is ready.</p>
                 </section>
 
-                <section class="browser-panel whoami-video-panel" data-browser-panel="whoami">
-                    <div class="whoami-video-shell">
-                        <div class="whoami-scroll-sequence" data-whoami-scroll>
-                            <div class="whoami-scroll-sequence__sticky">
-                                <canvas id="whoami-sequence-canvas" class="whoami-sequence-canvas" aria-label="Whoami animation sequence"></canvas>
-
-                                <div class="whoami-video-overlay">
-                                    <span>Whoami chapter</span>
-                                    <h2>Train scene, character reveal, and cinematic intro</h2>
-                                    <p>Scroll inside this panel to move frame by frame through the image sequence. The first section stays locked to the opening train scene.</p>
-                                    <strong data-whoami-status>Loading frames...</strong>
-                                </div>
-                            </div>
-
-                            <div class="whoami-scroll-sequence__spacer" aria-hidden="true"></div>
-                        </div>
-                    </div>
+                <section class="browser-panel" data-browser-panel="whoami">
+                    <h2>Whoami</h2>
+                    <span class="browser-url-tag">www.whoami.com</span>
+                    <p>Loading cinematic train sequence...</p>
                 </section>
 
                 <section class="browser-panel" data-browser-panel="about">
@@ -130,7 +125,7 @@
         <section class="paint-window" id="paint-window" aria-label="Paint window">
             <header class="paint-titlebar" data-drag-handle>
                 <div class="paint-title">
-                    <img src="/assets/paint-BDwobERW.png" alt="">
+                    <img src="assets/icons/paint.png" alt="">
                     <span>untitled - Paint</span>
                 </div>
                 <div class="paint-controls" aria-label="Window controls">
@@ -175,7 +170,7 @@
                     </div>
 
                     <figure class="paint-canvas">
-                        <canvas id="paint-canvas" width="900" height="560" data-image-src="assets/profile/founder.png" data-fallback-src="assets/wallpaper/wallpaper-night.png"></canvas>
+                        <canvas id="paint-canvas" width="900" height="560" data-image-src="assets/profile/founder.jpeg" data-fallback-src="assets/wallpaper/wallpaper-night.png"></canvas>
                     </figure>
 
                     <div class="paint-scroll paint-scroll-x">
@@ -228,7 +223,7 @@
         <section class="paint-window ctf-window" id="computer-window" aria-label="My Computer explorer" hidden>
             <header class="paint-titlebar" data-drag-handle>
                 <div class="paint-title">
-                    <img src="/assets/computer-BxjBW2Me.png" alt="">
+                    <img src="assets/icons/computer.png" alt="">
                     <span>My Computer</span>
                 </div>
                 <div class="paint-controls">
@@ -270,7 +265,7 @@
         <section class="paint-window ctf-window" id="folder-window" aria-label="Claim Folder explorer" hidden>
             <header class="paint-titlebar" data-drag-handle>
                 <div class="paint-title">
-                    <img src="/assets/folder-CwYOfnYk.png" alt="">
+                    <img src="assets/icons/folder.png" alt="">
                     <span>Claim Folder</span>
                 </div>
                 <div class="paint-controls">
@@ -296,7 +291,7 @@
         <div class="start-menu" id="start-menu">
             <div class="start-menu-header">
                 <div class="start-menu-user">
-                    <img class="user-avatar" src="/assets/founder-DA31NZh4.png" alt="Avatar" style="object-fit: cover;">
+                    <img class="user-avatar" src="assets/profile/founder.png" alt="Avatar" style="object-fit: cover;">
                     <div class="user-info">
                         <div class="user-name">Jeevan Yadav</div>
                         <div class="user-status">System Administrator</div>
@@ -306,19 +301,19 @@
             <div class="start-menu-body">
                 <div class="start-menu-left">
                     <div class="start-menu-item" data-open-window="computer-window">
-                        <img src="/assets/computer-BxjBW2Me.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <img src="assets/icons/computer.png" alt="" onerror="this.src='assets/icons/folder.png'">
                         <span>My Computer</span>
                     </div>
                     <div class="start-menu-item" data-open-window="browser-window">
-                        <img src="/assets/browser-Dfj6PCmg.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <img src="assets/icons/browser.png" alt="" onerror="this.src='assets/icons/folder.png'">
                         <span>Deploy Browser</span>
                     </div>
                     <div class="start-menu-item" data-open-window="folder-window">
-                        <img src="/assets/folder-CwYOfnYk.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <img src="assets/icons/folder.png" alt="" onerror="this.src='assets/icons/folder.png'">
                         <span>Projects Folder</span>
                     </div>
                     <div class="start-menu-item" data-open-window="paint-window">
-                        <img src="/assets/paint-BDwobERW.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <img src="assets/icons/paint.png" alt="" onerror="this.src='assets/icons/folder.png'">
                         <span>Paint Shop</span>
                     </div>
                 </div>
@@ -389,16 +384,16 @@
 
             <nav class="taskbar-apps" aria-label="Pinned apps">
                 <button class="taskbar-icon" type="button" data-restore-window="computer-window" aria-label="Computer">
-                    <img src="/assets/computer-BxjBW2Me.png" alt="">
+                    <img src="assets/icons/computer.png" alt="">
                 </button>
                 <button class="taskbar-icon" type="button" data-restore-window="browser-window" aria-label="Deploy Browser">
-                    <img src="/assets/browser-Dfj6PCmg.png" alt="">
+                    <img src="assets/icons/browser.png" alt="">
                 </button>
                 <button class="taskbar-icon" type="button" data-restore-window="folder-window" aria-label="Projects">
-                    <img src="/assets/folder-CwYOfnYk.png" alt="">
+                    <img src="assets/icons/folder.png" alt="">
                 </button>
                 <button class="taskbar-icon taskbar-window" type="button" data-restore-window="paint-window" aria-label="Paint">
-                    <img src="/assets/paint-BDwobERW.png" alt="">
+                    <img src="assets/icons/paint.png" alt="">
                     <span>Paint</span>
                 </button>
             </nav>
