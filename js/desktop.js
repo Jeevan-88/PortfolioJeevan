@@ -248,7 +248,6 @@ function setupWhoamiSequence() {
     }
 
     const tabFolders = {
-        whoami: "whoami",
         about: "aboutme",
         projects: "projects",
         skills: "skills",
