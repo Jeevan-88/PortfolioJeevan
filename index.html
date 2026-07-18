@@ -90,11 +90,11 @@
                             <div class="whoami-scroll-sequence__sticky">
                                 <canvas id="whoami-sequence-canvas" class="whoami-sequence-canvas" aria-label="Whoami animation sequence"></canvas>
 
-                                <div class="whoami-video-overlay">
-                                    <span>Whoami chapter</span>
-                                    <h2>Train scene, character reveal, and cinematic intro</h2>
-                                    <p>Scroll inside this panel to move frame by frame through the image sequence. The first section stays locked to the opening train scene.</p>
-                                    <strong data-whoami-status>Loading frames...</strong>
+                                <div class="sequence-spinner-overlay" id="whoami-loading-overlay">
+                                    <div style="text-align: center;">
+                                        <div class="sequence-spinner" style="margin: 0 auto 12px;"></div>
+                                        <span data-whoami-status style="color: rgba(255, 255, 255, 0.7); font-size: 13px; font-family: monospace;">Preloading animation… 0%</span>
+                                    </div>
                                 </div>
                             </div>
 
