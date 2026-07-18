@@ -697,15 +697,11 @@ function setupWhoamiSequence() {
     });
 
     // Load frames index and boot (dynamic auto-prefix lookup)
-    fetch("public/frames-index.json")
-        .then((res) => {
-            pathPrefix = "public/";
-            return res.json();
-        })
-        .catch(() => {
-            pathPrefix = "";
-            return fetch("frames-index.json").then((res) => res.json());
-        })
+    const isLocalFile = window.location.protocol === 'file:';
+    pathPrefix = isLocalFile ? "public/" : "";
+    
+    fetch(isLocalFile ? "public/frames-index.json" : "frames-index.json")
+        .then((res) => res.json())
         .then((data) => {
             framesIndex = data;
 
