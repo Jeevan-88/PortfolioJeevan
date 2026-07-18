@@ -70,35 +70,8 @@
                     <div style="padding:12px;">
                         <!-- Profile Card -->
                         <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 0;">
-                            <!-- CSS Drawn Profile Portrait Sketch -->
                             <div style="width:72px;height:72px;border-radius:50%;background:#1d222b;border:2px solid #30363d;position:relative;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.3);margin-bottom:8px;display:flex;align-items:center;justify-content:center;">
-                                <!-- Face Silhouette & Hair Sketch -->
-                                <svg viewBox="0 0 100 100" style="width:100%;height:100%;">
-                                    <circle cx="50" cy="50" r="45" fill="#24292e" />
-                                    <!-- Neck -->
-                                    <path d="M44 65 L44 80 L56 80 L56 65 Z" fill="#fbd5b5" />
-                                    <!-- Collar -->
-                                    <path d="M40 78 L50 86 L60 78 L50 92 Z" fill="#ffffff" />
-                                    <!-- Ears -->
-                                    <circle cx="34" cy="54" r="6" fill="#fbd5b5" />
-                                    <circle cx="66" cy="54" r="6" fill="#fbd5b5" />
-                                    <!-- Face -->
-                                    <ellipse cx="50" cy="54" rx="16" ry="20" fill="#fbd5b5" />
-                                    <!-- Eyes & Glasses -->
-                                    <circle cx="44" cy="50" r="4" fill="none" stroke="#24292e" stroke-width="1.5" />
-                                    <circle cx="56" cy="50" r="4" fill="none" stroke="#24292e" stroke-width="1.5" />
-                                    <line x1="48" y1="50" x2="52" y2="50" stroke="#24292e" stroke-width="1.5" />
-                                    <line x1="38" y1="48" x2="40" y2="50" stroke="#24292e" stroke-width="1" />
-                                    <line x1="62" y1="48" x2="60" y2="50" stroke="#24292e" stroke-width="1" />
-                                    <circle cx="44" cy="50" r="1.5" fill="#24292e" />
-                                    <circle cx="56" cy="50" r="1.5" fill="#24292e" />
-                                    <!-- Mustache -->
-                                    <path d="M42 62 Q50 59 58 62" stroke="#1d1d1d" stroke-width="3" fill="none" stroke-linecap="round" />
-                                    <path d="M46 64 Q50 67 54 64" fill="#1d1d1d" />
-                                    <!-- Hair & Beard -->
-                                    <path d="M30 45 Q36 28 50 28 Q64 28 70 45 C70 40 68 33 60 33 C52 33 48 31 44 33 C40 35 32 38 30 45 Z" fill="#181818" />
-                                    <path d="M34 50 L34 60 Q34 76 50 76 Q66 76 66 60 L66 50" fill="none" stroke="#1d1d1d" stroke-width="3.5" stroke-linecap="round" />
-                                </svg>
+                                <img src="assets/profile/founder.png" alt="Avatar" style="width:100%;height:100%;object-fit:cover;">
                             </div>
                             <div style="font-size:16px;font-weight:700;color:#f0f6fc;">Avula Jeevan Yadav</div>
                             <div style="font-size:12px;color:#8b949e;margin-top:1px;">Jeevan-88</div>
@@ -224,29 +197,8 @@
                     
                     <!-- Profile Card Area -->
                     <div style="padding:0 12px;position:relative;margin-top:-28px;">
-                        <!-- Custom Vector Avatar with sketch styling -->
                         <div style="width:58px;height:58px;border-radius:50%;background:#1d2226;border:3px solid #1d2226;box-shadow:0 0 0 1px #5c6065;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#2d3845;box-shadow: 0 0 12px rgba(100,160,255,0.15);">
-                            <svg viewBox="0 0 100 100" style="width:100%;height:100%;">
-                                <circle cx="50" cy="50" r="45" fill="#2d3845" />
-                                <!-- Suit/Shirt -->
-                                <path d="M25 90 C25 75 35 65 50 65 C65 65 75 75 75 90" fill="#1b1f23" />
-                                <path d="M42 66 L50 82 L58 66 Z" fill="#ffffff" />
-                                <path d="M47 80 L50 92 L53 80 Z" fill="#0a66c2" />
-                                <!-- Neck -->
-                                <path d="M44 58 L44 72 L56 72 L56 58 Z" fill="#fbd5b5" />
-                                <!-- Ears -->
-                                <circle cx="35" cy="48" r="5" fill="#fbd5b5" />
-                                <circle cx="65" cy="48" r="5" fill="#fbd5b5" />
-                                <!-- Face -->
-                                <ellipse cx="50" cy="46" rx="16" ry="18" fill="#fbd5b5" />
-                                <!-- Eyes & Hair -->
-                                <circle cx="44" cy="44" r="1.5" fill="#1b1f23" />
-                                <circle cx="56" cy="44" r="1.5" fill="#1b1f23" />
-                                <path d="M32 40 C34 26 50 24 64 26 C66 32 60 30 50 30 C42 30 36 34 32 40 Z" fill="#181818" />
-                                <!-- Beard & Mustache -->
-                                <path d="M34 46 L34 52 Q34 66 50 66 Q66 66 66 52 L66 46" fill="none" stroke="#181818" stroke-width="2.5" stroke-linecap="round" />
-                                <path d="M42 54 Q50 52 58 54" stroke="#181818" stroke-width="2.5" fill="none" />
-                            </svg>
+                            <img src="assets/profile/founder.png" alt="Avatar" style="width:100%;height:100%;object-fit:cover;">
                         </div>
                         
                         <div style="margin-top:8px;">

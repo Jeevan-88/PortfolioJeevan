@@ -149,86 +149,51 @@
 
                     <!-- Tab 2: Deploy Mockup (DeployPilot White Browser Page) -->
                     <div class="laptop-content-panel" id="panel-deploy">
-                        <div class="mini-browser-container" style="height: 100%; border: 1px solid #cbd5e1; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-                            <div class="mini-browser-toolbar" style="background: #f1f5f9; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 8px; padding: 6px 10px;">
+                        <div class="mini-browser-container" style="height: 100%; border: 1px solid #334155; box-shadow: 0 4px 20px rgba(0,0,0,0.3); display: flex; flex-direction: column; width: 100%; background: #0f172a;">
+                            <div class="mini-browser-toolbar" style="background: #1e293b; border-bottom: 1px solid #334155; display: flex; align-items: center; gap: 8px; padding: 6px 10px;">
                                 <div class="mini-browser-dots" style="display: flex; gap: 4px;">
                                     <span class="mini-browser-dot red" style="width:6px; height:6px; border-radius:50%; background:#ff5f56;"></span>
                                     <span class="mini-browser-dot yellow" style="width:6px; height:6px; border-radius:50%; background:#ffbd2e;"></span>
                                     <span class="mini-browser-dot green" style="width:6px; height:6px; border-radius:50%; background:#27c93f;"></span>
                                 </div>
-                                <div class="mini-browser-address-bar" style="flex: 1; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; font-family: sans-serif; font-size: 9px; color: #64748b; padding: 2px 8px; display: flex; justify-content: space-between; align-items: center;">
-                                    <span>https://www.deploypilot.com</span>
+                                <div class="mini-browser-address-bar" style="flex: 1; background: #0f172a; border: 1px solid #334155; border-radius: 4px; font-family: monospace; font-size: 9px; color: #94a3b8; padding: 2px 8px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span>https://deploy-pilot.dev</span>
                                     <span style="color:#10b981; font-size:8px; font-weight:bold;">🔒 Secure</span>
                                 </div>
                             </div>
-                            <div class="mini-browser-viewport" style="flex: 1; background: #ffffff; color: #0f172a; font-family: system-ui, -apple-system, sans-serif; padding: 16px; overflow-y: auto; text-align: left;">
-                                <!-- DeployPilot SaaS Header -->
-                                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; margin-bottom: 12px;">
-                                    <div style="display: flex; align-items: center; gap: 4px; font-weight: 800; font-size: 11px; color: #0f172a;">
-                                        <span style="background: #3b82f6; color: white; padding: 2px 4px; border-radius: 3px; font-size: 8px;">DP</span>
+                            <div class="mini-browser-viewport" style="flex: 1; background: #090d16; color: #fff; font-family: system-ui, -apple-system, sans-serif; display: flex; flex-direction: column; overflow: hidden; position: relative;">
+                                <!-- Navigation switcher bar inside viewport -->
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 10;">
+                                    <div style="display: flex; align-items: center; gap: 4px; font-weight: 800; font-size: 11px; color: #fff;">
+                                        <span style="background: #3b82f6; color: white; padding: 2px 4px; border-radius: 3px; font-size: 8px; font-weight: 900;">DP</span>
                                         DeployPilot
                                     </div>
-                                    <div style="display: flex; gap: 8px; font-size: 8px; color: #64748b; font-weight: 500;">
-                                        <span>Features</span>
-                                        <span>Docs</span>
-                                        <span>Pricing</span>
+                                    
+                                    <!-- Preview Switcher -->
+                                    <div style="display: flex; background: rgba(15, 23, 42, 0.8); padding: 2px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); gap: 2px;">
+                                        <button id="btn-show-landing" onclick="document.getElementById('deploy-landing-img').style.display='block'; document.getElementById('deploy-dash-img').style.display='none'; this.style.background='#3b82f6'; this.style.color='#fff'; document.getElementById('btn-show-dash').style.background='transparent'; document.getElementById('btn-show-dash').style.color='#94a3b8';" style="background: #3b82f6; color: #fff; border: none; font-size: 8px; font-weight: 600; padding: 3px 8px; border-radius: 4px; cursor: pointer; transition: all 0.15s;">
+                                            🖥️ Website Preview
+                                        </button>
+                                        <button id="btn-show-dash" onclick="document.getElementById('deploy-landing-img').style.display='none'; document.getElementById('deploy-dash-img').style.display='block'; this.style.background='#3b82f6'; this.style.color='#fff'; document.getElementById('btn-show-landing').style.background='transparent'; document.getElementById('btn-show-landing').style.color='#94a3b8';" style="background: transparent; color: #94a3b8; border: none; font-size: 8px; font-weight: 600; padding: 3px 8px; border-radius: 4px; cursor: pointer; transition: all 0.15s;">
+                                            📊 Console Preview
+                                        </button>
                                     </div>
-                                    <a href="https://github.com/Jeevan-88/DeployPilot" target="_blank" style="background: #0f172a; color: white; font-size: 8px; font-weight: 600; padding: 3px 8px; border-radius: 4px; text-decoration: none;">GitHub ↗</a>
-                                </div>
 
-                                <!-- SaaS Hero Section -->
-                                <div style="text-align: center; padding: 8px 0 12px 0;">
-                                    <h3 style="margin: 0; font-size: 14px; font-weight: 800; color: #0f172a; line-height: 1.2;">
-                                        One-Click Containerized DB Engine
-                                    </h3>
-                                    <p style="margin: 4px auto 0 auto; max-width: 320px; font-size: 9px; color: #475569; line-height: 1.4;">
-                                        Spring Boot based microservices platform to provision, scale, and monitor distributed databases securely across AWS and GCP.
-                                    </p>
-                                    <div style="margin-top: 8px; display: flex; justify-content: center; gap: 6px;">
-                                        <span style="background: #3b82f6; color: white; font-size: 8px; font-weight: bold; padding: 3px 10px; border-radius: 4px; cursor: pointer; box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);">Start Free</span>
-                                        <span style="background: #f1f5f9; color: #334155; font-size: 8px; font-weight: bold; padding: 3px 10px; border-radius: 4px; border: 1px solid #cbd5e1; cursor: pointer;">Read Docs</span>
-                                    </div>
-                                </div>
-
-                                <!-- Feature Grid -->
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;">
-                                    <div style="border: 1px solid #f1f5f9; border-radius: 6px; padding: 8px; background: #fafafa;">
-                                        <div style="font-weight: 700; font-size: 9px; color: #0f172a; display: flex; align-items: center; gap: 4px;">
-                                            <span>⚡</span> Zero Config
-                                        </div>
-                                        <p style="margin: 2px 0 0 0; font-size: 8px; color: #64748b; line-height: 1.3;">
-                                            Deploy production-grade PostgreSQL or MySQL clusters with replication and backups auto-configured.
-                                        </p>
-                                    </div>
-                                    <div style="border: 1px solid #f1f5f9; border-radius: 6px; padding: 8px; background: #fafafa;">
-                                        <div style="font-weight: 700; font-size: 9px; color: #0f172a; display: flex; align-items: center; gap: 4px;">
-                                            <span>🛡️</span> High Security
-                                            <span style="background: #d1fae5; color: #065f46; font-size: 6.5px; padding: 1px 3px; border-radius: 2px;">Active</span>
-                                        </div>
-                                        <p style="margin: 2px 0 0 0; font-size: 8px; color: #64748b; line-height: 1.3;">
-                                            Integrated CloudTrail and KMS keys encryption ensure all databases are isolated in private VPCs.
-                                        </p>
+                                    <div style="display: flex; gap: 6px;">
+                                        <a href="https://deploy-pilot.dev" target="_blank" style="background: #10b981; color: white; font-size: 8px; font-weight: 700; padding: 4px 8px; border-radius: 4px; text-decoration: none; display: flex; align-items: center; gap: 2px; box-shadow: 0 0 12px rgba(16,185,129,0.3); transition: transform 0.1s;" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">
+                                            Visit Site ↗
+                                        </a>
+                                        <a href="https://github.com/Jeevan-88/DeployPilot" target="_blank" style="background: rgba(255,255,255,0.08); color: white; font-size: 8px; font-weight: 600; padding: 4px 8px; border-radius: 4px; text-decoration: none; border: 1px solid rgba(255,255,255,0.15); transition: background 0.1s;" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+                                            GitHub ↗
+                                        </a>
                                     </div>
                                 </div>
 
-                                <!-- Simulated UI Dashboard Graphic -->
-                                <div style="margin-top: 12px; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                                    <div style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 4px 8px; font-size: 7px; color: #64748b; display: flex; justify-content: space-between; align-items: center;">
-                                        <span>DeployPilot Console</span>
-                                        <span style="color: #3b82f6;">● Running (2 clusters)</span>
-                                    </div>
-                                    <div style="padding: 10px; background: #ffffff;">
-                                        <div style="display: flex; justify-content: space-between; font-size: 8px; margin-bottom: 6px;">
-                                            <span>🚀 db-cluster-primary</span>
-                                            <span style="font-weight: bold; color: #10b981;">100% HEALTHY</span>
-                                        </div>
-                                        <div style="height: 3px; background: #e2e8f0; border-radius: 2px; overflow: hidden; margin-bottom: 8px;">
-                                            <div style="width: 100%; height: 100%; background: #10b981;"></div>
-                                        </div>
-                                        <div style="display: flex; justify-content: space-between; font-size: 8px;">
-                                            <span>📂 db-cluster-replica-1</span>
-                                            <span style="font-weight: bold; color: #10b981;">SYNCED</span>
-                                        </div>
+                                <!-- Scrollable Preview Container -->
+                                <div style="flex: 1; overflow-y: auto; background: #0b0f19; padding: 12px; display: flex; justify-content: center; align-items: flex-start;">
+                                    <div style="width: 100%; max-width: 720px; border-radius: 6px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); background: #111;">
+                                        <img id="deploy-landing-img" src="/deploypilot-landing.png" alt="DeployPilot Landing Page Mockup" style="width: 100%; display: block;" />
+                                        <img id="deploy-dash-img" src="/deploypilot-dashboard.png" alt="DeployPilot Console Dashboard Mockup" style="width: 100%; display: none;" />
                                     </div>
                                 </div>
                             </div>

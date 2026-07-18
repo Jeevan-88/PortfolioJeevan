@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio OS</title>
-  <link rel="stylesheet" crossorigin href="/assets/index-Kg-NgbK6.css">
+    <title>Deploy OS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" crossorigin href="/assets/index-CGFe8A-T.css">
 </head>
 <body>
     <main class="desktop" aria-label="Portfolio desktop">
         <section class="desktop-icons" aria-label="Desktop shortcuts">
-            <a class="icon computer" href="pages/computer.html">
+            <button class="icon computer" type="button" data-open-window="computer-window">
                 <img src="/assets/computer-BxjBW2Me.png" alt="">
-                <span>Computer</span>
-            </a>
+                <span>My Computer</span>
+            </button>
 
             <button class="icon" type="button" data-open-window="browser-window">
                 <img src="/assets/browser-Dfj6PCmg.png" alt="">
                 <span>Browser</span>
             </button>
 
-            <a class="icon folder" href="pages/folder.html">
+            <button class="icon folder" type="button" data-open-window="folder-window">
                 <img src="/assets/folder-CwYOfnYk.png" alt="">
-                <span>Projects</span>
-            </a>
+                <span>Claim Folder</span>
+            </button>
 
             <button class="icon paint" type="button" data-open-window="paint-window">
                 <img src="/assets/paint-BDwobERW.png" alt="">
@@ -48,13 +51,10 @@
                 <button class="active" type="button" data-browser-tab="home" data-browser-url="www.deploy.com">Deploy</button>
                 <button type="button" data-browser-tab="whoami" data-browser-url="www.whoami.com">Whoami</button>
                 <button type="button" data-browser-tab="about" data-browser-url="www.aboutme.com">About Me</button>
-                <button type="button" data-browser-tab="work" data-browser-url="www.mywork.com">My Work</button>
                 <button type="button" data-browser-tab="projects" data-browser-url="www.projects.com">Projects</button>
                 <button type="button" data-browser-tab="skills" data-browser-url="www.skills.com">Skills</button>
-                <button type="button" data-browser-tab="experience" data-browser-url="www.experience.com">Experience</button>
-                <button type="button" data-browser-tab="contact" data-browser-url="www.contactme.com">Contact Me</button>
                 <button type="button" data-browser-tab="resume" data-browser-url="www.resume.com">Resume</button>
-                <button type="button" data-browser-tab="links" data-browser-url="www.links.com">Links</button>
+                <button type="button" data-browser-tab="contact" data-browser-url="www.contactme.com">Contact Me</button>
             </div>
 
             <form class="browser-toolbar" id="deploy-search-form">
@@ -101,12 +101,6 @@
                     <p>Placeholder tab for your story, background, and current focus.</p>
                 </section>
 
-                <section class="browser-panel" data-browser-panel="work">
-                    <h2>My Work</h2>
-                    <span class="browser-url-tag">www.mywork.com</span>
-                    <p>Placeholder tab for featured work and case studies.</p>
-                </section>
-
                 <section class="browser-panel" data-browser-panel="projects">
                     <h2>Projects</h2>
                     <span class="browser-url-tag">www.projects.com</span>
@@ -119,28 +113,16 @@
                     <p>Placeholder tab for technical stack, tools, and strengths.</p>
                 </section>
 
-                <section class="browser-panel" data-browser-panel="experience">
-                    <h2>Experience</h2>
-                    <span class="browser-url-tag">www.experience.com</span>
-                    <p>Placeholder tab for education, roles, internships, and milestones.</p>
-                </section>
-
-                <section class="browser-panel" data-browser-panel="contact">
-                    <h2>Contact Me</h2>
-                    <span class="browser-url-tag">www.contactme.com</span>
-                    <p>Placeholder tab for email, socials, and contact form.</p>
-                </section>
-
                 <section class="browser-panel" data-browser-panel="resume">
                     <h2>Resume</h2>
                     <span class="browser-url-tag">www.resume.com</span>
                     <p>Placeholder tab for resume preview and download action.</p>
                 </section>
 
-                <section class="browser-panel" data-browser-panel="links">
-                    <h2>Links</h2>
-                    <span class="browser-url-tag">www.links.com</span>
-                    <p>Placeholder tab for GitHub, LinkedIn, portfolio links, and other profiles.</p>
+                <section class="browser-panel" data-browser-panel="contact">
+                    <h2>Contact Me</h2>
+                    <span class="browser-url-tag">www.contactme.com</span>
+                    <p>Placeholder tab for email, socials, and contact form.</p>
                 </section>
             </div>
         </section>
@@ -193,7 +175,7 @@
                     </div>
 
                     <figure class="paint-canvas">
-                        <canvas id="paint-canvas" width="900" height="560" data-image-src="assets/profile/founder.jpeg" data-fallback-src="assets/wallpaper/wallpaper-night.png"></canvas>
+                        <canvas id="paint-canvas" width="900" height="560" data-image-src="assets/profile/founder.png" data-fallback-src="assets/wallpaper/wallpaper-night.png"></canvas>
                     </figure>
 
                     <div class="paint-scroll paint-scroll-x">
@@ -242,6 +224,163 @@
             <input id="paint-file-input" type="file" accept="image/*" hidden>
         </section>
 
+        <!-- My Computer Window (Passcode Locked) -->
+        <section class="paint-window ctf-window" id="computer-window" aria-label="My Computer explorer" hidden>
+            <header class="paint-titlebar" data-drag-handle>
+                <div class="paint-title">
+                    <img src="/assets/computer-BxjBW2Me.png" alt="">
+                    <span>My Computer</span>
+                </div>
+                <div class="paint-controls">
+                    <button type="button" aria-label="Minimize" data-minimize-window="computer-window">_</button>
+                    <button type="button" aria-label="Maximize" data-maximize-window="computer-window">[]</button>
+                    <button type="button" aria-label="Close" data-close-window="computer-window">X</button>
+                </div>
+            </header>
+            <div class="ctf-window-body" id="computer-window-body">
+                <!-- Locked Screen State -->
+                <div class="ctf-lock-screen" id="computer-lock-screen">
+                    <div class="ctf-lock-icon">🔒</div>
+                    <div class="ctf-lock-title">SECURE CLOUD STORAGE GATEWAY</div>
+                    <div class="ctf-lock-desc">
+                        Access is encrypted. Find the 6-digit alphanumeric key from the Projects Laptop terminal history to authorize decryption.
+                    </div>
+                    <div class="ctf-lock-input-container">
+                        <input type="text" class="ctf-passcode-input" id="computer-passcode" maxlength="6" placeholder="******" autocomplete="off">
+                        <button type="button" class="ctf-decrypt-btn" id="computer-decrypt-btn">DECRYPT DATABASE</button>
+                    </div>
+                    <div class="ctf-error-msg" id="computer-error-msg"></div>
+                </div>
+
+                <!-- Unlocked Folder Grid (Hidden initially) -->
+                <div class="file-grid" id="computer-unlocked-grid" style="display: none;">
+                    <div class="file-item" id="database-exe-item">
+                        <img src="assets/icons/console.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <span>database_access.exe</span>
+                    </div>
+                    <div class="file-item" id="computer-readme-item">
+                        <img src="assets/icons/notepad.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <span>readme.txt</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Claim Folder Window (Quest Info & Instructions) -->
+        <section class="paint-window ctf-window" id="folder-window" aria-label="Claim Folder explorer" hidden>
+            <header class="paint-titlebar" data-drag-handle>
+                <div class="paint-title">
+                    <img src="/assets/folder-CwYOfnYk.png" alt="">
+                    <span>Claim Folder</span>
+                </div>
+                <div class="paint-controls">
+                    <button type="button" aria-label="Minimize" data-minimize-window="folder-window">_</button>
+                    <button type="button" aria-label="Maximize" data-maximize-window="folder-window">[]</button>
+                    <button type="button" aria-label="Close" data-close-window="folder-window">X</button>
+                </div>
+            </header>
+            <div class="ctf-window-body">
+                <div class="file-grid">
+                    <div class="file-item" id="quest-info-item">
+                        <img src="assets/icons/notepad.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <span>quest_info.txt</span>
+                    </div>
+                    <div class="file-item" id="clue-manifest-item">
+                        <img src="assets/icons/notepad.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <span>clue_manifest.txt</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Start Menu Dropdown -->
+        <div class="start-menu" id="start-menu">
+            <div class="start-menu-header">
+                <div class="start-menu-user">
+                    <img class="user-avatar" src="/assets/founder-DA31NZh4.png" alt="Avatar" style="object-fit: cover;">
+                    <div class="user-info">
+                        <div class="user-name">Jeevan Yadav</div>
+                        <div class="user-status">System Administrator</div>
+                    </div>
+                </div>
+            </div>
+            <div class="start-menu-body">
+                <div class="start-menu-left">
+                    <div class="start-menu-item" data-open-window="computer-window">
+                        <img src="/assets/computer-BxjBW2Me.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <span>My Computer</span>
+                    </div>
+                    <div class="start-menu-item" data-open-window="browser-window">
+                        <img src="/assets/browser-Dfj6PCmg.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <span>Deploy Browser</span>
+                    </div>
+                    <div class="start-menu-item" data-open-window="folder-window">
+                        <img src="/assets/folder-CwYOfnYk.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <span>Projects Folder</span>
+                    </div>
+                    <div class="start-menu-item" data-open-window="paint-window">
+                        <img src="/assets/paint-BDwobERW.png" alt="" onerror="this.src='assets/icons/folder.png'">
+                        <span>Paint Shop</span>
+                    </div>
+                </div>
+                <div class="start-menu-right">
+                    <a href="https://github.com/Jeevan-88" target="_blank" class="start-menu-link">
+                        <span>GitHub Profile ↗</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/jeevan8" target="_blank" class="start-menu-link">
+                        <span>LinkedIn Profile ↗</span>
+                    </a>
+                    <div class="start-menu-separator"></div>
+                    <div class="start-menu-link" style="color: #64748b; font-size: 9px; cursor: default;">
+                        <span>PIN Hint: 0000</span>
+                    </div>
+                </div>
+            </div>
+            <div class="start-menu-footer">
+                <button class="power-off-btn" id="btn-power-off" type="button">
+                    <span class="power-icon">⏻</span>
+                    <span>Power Off</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Shutdown Password dialog overlay -->
+        <div id="shutdown-auth-dialog" class="auth-dialog-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
+            <div class="auth-dialog-box" style="width:340px; background:#0f172a; border:2px solid #ef4444; border-radius:8px; box-shadow:0 10px 40px rgba(239, 68, 68, 0.35); overflow:hidden; font-family:monospace;">
+                <div class="auth-dialog-header" style="background:#b91c1c; padding:8px 12px; color:white; font-weight:bold; font-size:12px; display:flex; justify-content:space-between; align-items:center;">
+                    <span>🔒 Shutdown Authorization Required</span>
+                    <button id="close-auth-dialog" type="button" style="background:transparent; border:0; color:white; font-size:14px; cursor:pointer;">×</button>
+                </div>
+                <div class="auth-dialog-body" style="padding:16px; color:#cbd5e1; font-size:11px; text-align:left;">
+                    <p style="margin:0 0 12px 0; line-height:1.4;">
+                        Enter system authorization pin to execute power-down sequence for <strong>Deploy OS</strong>:
+                    </p>
+                    <div style="position:relative; margin-bottom:12px;">
+                        <input type="password" id="shutdown-pin-input" placeholder="Enter PIN..." style="width:100%; background:#020617; border:1px solid #475569; padding:8px; border-radius:4px; color:#ffffff; font-size:14px; letter-spacing:4px; font-family:monospace; outline:none; text-align:center;">
+                        <div id="auth-error-msg" style="color:#ef4444; font-size:9.5px; margin-top:4px; display:none; text-align:center;">
+                            ❌ Incorrect system authorization pin. Access Denied.
+                        </div>
+                    </div>
+                    <div style="font-size:8.5px; color:#64748b; line-height:1.3; margin-top:8px;">
+                        <strong>Admin Tip:</strong> Cloud Sentry audit scan prints the main access key. Or use the requested demo code.
+                    </div>
+                </div>
+                <div class="auth-dialog-footer" style="background:#020617; padding:10px 16px; display:flex; justify-content:flex-end; gap:8px; border-top:1px solid rgba(255,255,255,0.05);">
+                    <button id="btn-auth-cancel" type="button" style="background:transparent; border:1px solid #475569; border-radius:4px; color:#cbd5e1; padding:6px 12px; font-size:10px; cursor:pointer; font-family:inherit;">Cancel</button>
+                    <button id="btn-auth-confirm" type="button" style="background:#dc2626; border:0; border-radius:4px; color:white; padding:6px 16px; font-size:10px; font-weight:bold; cursor:pointer; font-family:inherit;">Authorize</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cinematic Shutdown Overlay -->
+        <div id="cinematic-shutdown-overlay" style="display:none; position:fixed; inset:0; background:#000000; z-index:100000; justify-content:center; align-items:center; color:#ffffff; font-family:monospace; overflow:hidden;">
+            <!-- Glitch screen flash overlay -->
+            <div id="shutdown-glitch-screen" style="position:absolute; inset:0; background:rgba(255,255,255,0.15); pointer-events:none; opacity:0; transition:opacity: 0.1s ease; z-index:10;"></div>
+            
+            <div id="cinematic-credits-container" style="text-align:center; max-width:500px; padding:20px; line-height:1.6; opacity:0;">
+                <!-- Credits content injected dynamically via JS writer -->
+            </div>
+        </div>
+
         <footer class="taskbar" aria-label="Taskbar">
             <button class="start" type="button">
                 <span class="start-mark"></span>
@@ -249,16 +388,16 @@
             </button>
 
             <nav class="taskbar-apps" aria-label="Pinned apps">
-                <a class="taskbar-icon" href="pages/computer.html" aria-label="Computer">
+                <button class="taskbar-icon" type="button" data-restore-window="computer-window" aria-label="Computer">
                     <img src="/assets/computer-BxjBW2Me.png" alt="">
-                </a>
+                </button>
                 <button class="taskbar-icon" type="button" data-restore-window="browser-window" aria-label="Deploy Browser">
                     <img src="/assets/browser-Dfj6PCmg.png" alt="">
                 </button>
-                <a class="taskbar-icon" href="pages/folder.html" aria-label="Projects">
+                <button class="taskbar-icon" type="button" data-restore-window="folder-window" aria-label="Projects">
                     <img src="/assets/folder-CwYOfnYk.png" alt="">
-                </a>
-                <button class="taskbar-icon taskbar-window active" type="button" data-restore-window="paint-window" aria-label="Paint">
+                </button>
+                <button class="taskbar-icon taskbar-window" type="button" data-restore-window="paint-window" aria-label="Paint">
                     <img src="/assets/paint-BDwobERW.png" alt="">
                     <span>Paint</span>
                 </button>
@@ -272,6 +411,12 @@
     </main>
 
     <script src="js/clock.js"></script>
+    <script src="js/phone-apps.js"></script>
+    <script src="js/phone-ui.js"></script>
+    <script src="js/laptop-ui.js"></script>
+    <script src="js/skills-ui.js"></script>
+    <script src="js/resume-ui.js"></script>
+    <script src="js/ctf-game.js"></script>
     <script src="js/desktop.js"></script>
 </body>
 </html>
