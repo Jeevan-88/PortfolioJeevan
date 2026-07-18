@@ -93,30 +93,8 @@
 
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
-        const imgWidth = img.width;
-        const imgHeight = img.height;
 
-        const canvasRatio = canvasWidth / canvasHeight;
-        const imgRatio = imgWidth / imgHeight;
-
-        let drawWidth, drawHeight, drawX, drawY;
-
-        if (canvasRatio > imgRatio) {
-            /* Canvas is wider than Image (crop top/bottom) */
-            drawWidth = canvasWidth;
-            drawHeight = canvasWidth / imgRatio;
-            drawX = 0;
-            drawY = (canvasHeight - drawHeight) / 2;
-        } else {
-            /* Canvas is taller than Image (crop sides) */
-            drawWidth = canvasHeight * imgRatio;
-            drawHeight = canvasHeight;
-            drawX = (canvasWidth - drawWidth) / 2;
-            drawY = 0;
-        }
-
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+        ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
     }
 
     /* ═══════════════════════════════════
