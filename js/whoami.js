@@ -25,7 +25,7 @@
     const ctx = canvas.getContext('2d');
 
     /* ── Constants ── */
-    const TOTAL_FRAMES     = 300;
+    const TOTAL_FRAMES     = 219;
     const FRAME_DIR        = window.location.protocol === 'file:' ? 'public/whoami-frames/' : 'whoami-frames/';
     const FRAME_PREFIX     = 'PortfolioAnimation_';
     const SCROLL_SPEED     = 0.35; // Sensitivity of scrolling
