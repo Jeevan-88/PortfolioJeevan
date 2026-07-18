@@ -248,6 +248,7 @@ function setupWhoamiSequence() {
     }
 
     const tabFolders = {
+        whoami: "whoami-frames",
         about: "aboutme",
         projects: "projects",
         skills: "skills",

@@ -84,27 +84,10 @@
                     <p id="deploy-search-output">Your private portfolio browser is ready.</p>
                 </section>
 
-                <section class="browser-panel whoami-video-panel" data-browser-panel="whoami">
-                    <div class="whoami-video-shell">
-                        <div class="whoami-scroll-sequence" data-whoami-scroll>
-                            <div class="whoami-scroll-sequence__sticky">
-                                <canvas id="whoami-sequence-canvas" class="whoami-sequence-canvas" aria-label="Whoami animation sequence"></canvas>
-
-                                <div class="sequence-spinner-overlay" id="whoami-loading-overlay">
-                                    <div style="text-align: center;">
-                                        <div class="sequence-spinner" style="margin: 0 auto 12px;"></div>
-                                        <span data-whoami-status style="color: rgba(255, 255, 255, 0.7); font-size: 13px; font-family: monospace;">Preloading animation… 0%</span>
-                                    </div>
-                                </div>
-                                <div class="scroll-hint-overlay">
-                                    <div class="scroll-mouse-icon"></div>
-                                    <span class="scroll-hint-text" data-idle="Scroll to Explore" data-active="Scrolling...">Scroll to Explore</span>
-                                </div>
-                            </div>
-
-                            <div class="whoami-scroll-sequence__spacer" aria-hidden="true"></div>
-                        </div>
-                    </div>
+                <section class="browser-panel" data-browser-panel="whoami">
+                    <h2>Whoami</h2>
+                    <span class="browser-url-tag">www.whoami.com</span>
+                    <p>Loading cinematic train sequence...</p>
                 </section>
 
                 <section class="browser-panel" data-browser-panel="about">
@@ -429,7 +412,6 @@
     <script src="js/skills-ui.js"></script>
     <script src="js/resume-ui.js"></script>
     <script src="js/ctf-game.js"></script>
-    <script src="js/whoami.js"></script>
     <script src="js/desktop.js"></script>
 </body>
 </html>
