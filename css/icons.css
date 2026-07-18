@@ -101,3 +101,22 @@
     text-align: center;
     text-shadow: 0 2px 8px rgba(0, 0, 0, .8);
 }
+
+/* Pulsing glow highlight for the browser icon to guide recruiters */
+.icon[data-open-window="browser-window"] {
+    animation: browser-pulsing-glow 2s infinite alternate;
+    border-radius: 10px;
+}
+
+@keyframes browser-pulsing-glow {
+    0% {
+        box-shadow: 0 0 6px rgba(0, 120, 215, 0.4), inset 0 0 4px rgba(0, 120, 215, 0.2);
+        border-color: rgba(0, 120, 215, 0.4);
+        background: rgba(0, 120, 215, 0.05);
+    }
+    100% {
+        box-shadow: 0 0 18px rgba(0, 120, 215, 0.85), inset 0 0 10px rgba(0, 120, 215, 0.4);
+        border-color: rgba(0, 120, 215, 0.85);
+        background: rgba(0, 120, 215, 0.15);
+    }
+}

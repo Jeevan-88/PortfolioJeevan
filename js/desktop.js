@@ -152,6 +152,29 @@ function makeWindowDraggable(windowElement) {
 function makeDesktopIconsDraggable() {
     const iconsContainer = document.querySelector(".desktop-icons");
     const icons = Array.from(document.querySelectorAll(".desktop-icons .icon"));
+    if (!iconsContainer || icons.length === 0) return;
+
+    function initLayout() {
+        const desktop = document.querySelector(".desktop");
+        if (!desktop) return;
+        const desktopRect = desktop.getBoundingClientRect();
+        
+        // Measure rects before changing layout modes
+        const rects = icons.map(item => item.getBoundingClientRect());
+        
+        // Lock grid mode to absolute positions
+        iconsContainer.classList.add("drag-mode");
+        void iconsContainer.offsetHeight; // Force reflow
+
+        icons.forEach((item, index) => {
+            item.style.position = "absolute";
+            item.style.left = `${rects[index].left - desktopRect.left}px`;
+            item.style.top = `${rects[index].top - desktopRect.top}px`;
+        });
+    }
+
+    // Initialize layout positions after initial layout stabilizes
+    setTimeout(initLayout, 100);
 
     icons.forEach((icon) => {
         let startX = 0;
@@ -162,22 +185,8 @@ function makeDesktopIconsDraggable() {
         let dragging = false;
 
         icon.addEventListener("pointerdown", (event) => {
-            if (!desktop || !iconsContainer) {
-                return;
-            }
-
-            const desktopRect = desktop.getBoundingClientRect();
-
-            if (!iconsContainer.classList.contains("drag-mode")) {
-                icons.forEach((item) => {
-                    const itemRect = item.getBoundingClientRect();
-                    item.style.position = "absolute";
-                    item.style.left = `${itemRect.left - desktopRect.left}px`;
-                    item.style.top = `${itemRect.top - desktopRect.top}px`;
-                });
-
-                iconsContainer.classList.add("drag-mode");
-            }
+            const desktop = document.querySelector(".desktop");
+            if (!desktop) return;
 
             dragging = true;
             moved = false;
@@ -190,9 +199,9 @@ function makeDesktopIconsDraggable() {
         });
 
         icon.addEventListener("pointermove", (event) => {
-            if (!dragging || !desktop) {
-                return;
-            }
+            if (!dragging) return;
+            const desktop = document.querySelector(".desktop");
+            if (!desktop) return;
 
             const deltaX = event.clientX - startX;
             const deltaY = event.clientY - startY;
@@ -261,12 +270,50 @@ function setupWhoamiSequence() {
         const tabId = panel.dataset.browserPanel;
         if (tabFolders[tabId] !== undefined && tabFolders[tabId] !== null) {
             panel.classList.add("sequence-panel");
+            
+            let extraHTML = "";
+            if (tabId === "about") {
+                extraHTML = `
+                    <div class="aboutme-text-overlay">
+                        <div class="aboutme-text-content">
+                            <div class="aboutme-slide">
+                                <p>I have always been obsessed with the simple act of building things.</p>
+                            </div>
+                            <div class="aboutme-slide">
+                                <p>It started with curiosity: looking at how things worked under the hood, taking them apart, and trying to put them back together. Today, that same curiosity drives my work in Cloud and DevOps.</p>
+                            </div>
+                            <div class="aboutme-slide">
+                                <p>To me, setting up infrastructure is not just about writing config files. It is about creating a living, breathing digital system.</p>
+                            </div>
+                            <div class="aboutme-slide">
+                                <ul>
+                                    <li><span>•</span> <strong>AWS</strong> is my playground for building scalable environments.</li>
+                                    <li><span>•</span> <strong>Docker</strong> is how I package ideas to make them run anywhere.</li>
+                                    <li><span>•</span> <strong>CI/CD pipelines</strong> make the deployment process feel like magic.</li>
+                                </ul>
+                            </div>
+                            <div class="aboutme-slide">
+                                <p>But I do not just stick to one track. I am a big believer in taking on side quests—exploring creative outlets like video editing, generative AI tools, and trying to blend technology with art.</p>
+                            </div>
+                            <div class="aboutme-slide">
+                                <p style="font-weight:600;color:#70b5f9;">I am constantly learning, experimenting, and looking for the next interesting problem to solve.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
             // Inject standard full-bleed wrapper, canvas, and spinner overlay
             panel.innerHTML = `
                 <div class="sequence-panel-wrapper">
                     <canvas class="sequence-canvas"></canvas>
+                    ${extraHTML}
                     <div class="sequence-spinner-overlay">
                         <div class="sequence-spinner"></div>
+                    </div>
+                    <div class="scroll-hint-overlay">
+                        <div class="scroll-mouse-icon"></div>
+                        <span class="scroll-hint-text" data-idle="Scroll to Explore" data-active="Scrolling...">Scroll to Explore</span>
                     </div>
                 </div>
             `;
@@ -305,7 +352,32 @@ function setupWhoamiSequence() {
         }
 
         const total = state.frameCount;
-        const index = Math.max(0, Math.min(total - 1, Math.floor(state.progress * (total - 1))));
+        
+        let frameProgress = state.progress;
+        let textProgress = 0;
+        
+        if (tabId === "about") {
+            if (state.progress <= 0.7) {
+                frameProgress = state.progress / 0.7;
+                textProgress = 0;
+            } else {
+                frameProgress = 1.0;
+                textProgress = (state.progress - 0.7) / 0.3;
+            }
+        }
+
+        // Skills tab: freeze at last frame for sticky note reveal
+        if (tabId === "skills") {
+            if (state.progress <= 0.85) {
+                frameProgress = state.progress / 0.85;
+            } else {
+                frameProgress = 1.0;
+            }
+        }
+
+
+
+        const index = Math.max(0, Math.min(total - 1, Math.floor(frameProgress * (total - 1))));
         const image = state.images[index];
 
         if (!image || !image.complete || !image.naturalWidth || !image.naturalHeight) {
@@ -322,25 +394,60 @@ function setupWhoamiSequence() {
         const canvasRatio = canvasWidth / canvasHeight;
         const imgRatio = imgWidth / imgHeight;
 
-        let drawWidth, drawHeight, drawX, drawY;
+        state.ctx.drawImage(image, 0, 0, canvasWidth, canvasHeight);
 
-        if (canvasRatio > imgRatio) {
-            // Canvas is wider than Image (crop top/bottom to fill width)
-            drawWidth = canvasWidth;
-            drawHeight = canvasWidth / imgRatio;
-            drawX = 0;
-            drawY = (canvasHeight - drawHeight) / 2;
-        } else {
-            // Canvas is taller than Image (crop left/right to fill height)
-            drawHeight = canvasHeight;
-            drawWidth = canvasHeight * imgRatio;
-            drawX = (canvasWidth - drawWidth) / 2;
-            drawY = 0;
+        // Update the scroll position of the text overlay on the 'about' tab
+        if (tabId === "about") {
+            const overlay = state.canvas.parentElement.querySelector(".aboutme-text-overlay");
+            if (overlay) {
+                const slides = overlay.querySelectorAll(".aboutme-slide");
+                if (textProgress === 0) {
+                    slides.forEach(slide => {
+                        slide.style.display = "none";
+                        slide.style.opacity = "0";
+                    });
+                } else {
+                    const numSlides = slides.length;
+                    slides.forEach((slide, i) => {
+                        // Spread slides evenly across the 0.7-1.0 scroll space
+                        const x = textProgress * (numSlides - 0.99) - i;
+                        if (x >= -1.0 && x <= 1.0) {
+                            let opacity = 0;
+                            let translateY = 0;
+                            let translateZ = 0;
+                            let rotateX = 0;
+                            let scale = 1;
+
+                            if (x < 0) {
+                                // Entering from bottom/depth
+                                const pct = x + 1.0; // 0.0 to 1.0
+                                opacity = pct;
+                                translateY = (1.0 - pct) * 90;
+                                translateZ = (1.0 - pct) * -180;
+                                rotateX = (1.0 - pct) * 40;
+                                scale = 0.6 + pct * 0.4;
+                            } else {
+                                // Exiting to top/front
+                                const pct = 1.0 - x; // 1.0 to 0.0
+                                opacity = pct;
+                                translateY = -x * 90;
+                                translateZ = x * 180;
+                                rotateX = -x * 40;
+                                scale = 1.0 + x * 0.2;
+                            }
+
+                            slide.style.display = "block";
+                            // Use requestAnimationFrame style updates to ensure smooth 60fps tracking
+                            slide.style.opacity = opacity.toFixed(3);
+                            slide.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, ${translateZ.toFixed(1)}px) rotateX(${rotateX.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+                        } else {
+                            slide.style.display = "none";
+                            slide.style.opacity = "0";
+                        }
+                    });
+                }
+            }
         }
-
-        state.ctx.fillStyle = "#050810";
-        state.ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-        state.ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
     }
 
     // Loader helper using requestIdleCallback/timeouts for low priority background loading
@@ -502,7 +609,44 @@ function setupWhoamiSequence() {
                 state.progress += diff * 0.12; // Lerp smoothing
                 drawFrame(activeTab);
             }
+
+            // Activate interactive phone on Contact Me tab at end of scroll
+            if (activeTab === "contact" && window.PhoneUI) {
+                window.PhoneUI.checkProgress(state.progress);
+            }
+
+            // Activate interactive laptop on Projects tab at end of scroll
+            if (activeTab === "projects" && window.LaptopUI) {
+                window.LaptopUI.checkProgress(state.progress);
+            }
+
+            // Activate sticky note skills overlay on Skills tab at end of scroll
+            if (activeTab === "skills" && window.SkillsUI) {
+                window.SkillsUI.checkProgress(state.progress);
+            }
+
+            // Activate resume blackboard overlay on Resume tab at end of scroll
+            if (activeTab === "resume" && window.ResumeUI) {
+                window.ResumeUI.checkProgress(state.progress);
+            }
         }
+    }
+
+    // Scroll state indicator
+    let scrollIdleTimer = null;
+    function setScrollActive() {
+        const panel = document.querySelector(`[data-browser-panel="${activeTab}"]`);
+        if (!panel) return;
+        const text = panel.querySelector(".scroll-hint-text");
+        const mouse = panel.querySelector(".scroll-mouse-icon");
+        if (text) text.textContent = text.dataset.active;
+        if (mouse) mouse.classList.add("scrolling");
+
+        if (scrollIdleTimer) clearTimeout(scrollIdleTimer);
+        scrollIdleTimer = setTimeout(() => {
+            if (text) text.textContent = text.dataset.idle;
+            if (mouse) mouse.classList.remove("scrolling");
+        }, 600);
     }
 
     // Scroll scrubbing event handlers
@@ -511,6 +655,7 @@ function setupWhoamiSequence() {
         if (!state || !state.loaded) return;
 
         e.preventDefault();
+        setScrollActive();
 
         // Speed proportional to number of frames (keeps scroll velocity uniform)
         const scrollStep = 12 / state.frameCount;
@@ -531,6 +676,7 @@ function setupWhoamiSequence() {
         if (!state || !state.loaded) return;
 
         e.preventDefault();
+        setScrollActive();
 
         const currentY = e.touches[0].clientY;
         const deltaY = touchStartY - currentY;
@@ -1103,4 +1249,192 @@ makeDesktopIconsDraggable();
 setupWhoamiSequence();
 setupPaintApp();
 setupDeployBrowser();
+setupStartMenuAndPowerOff();
 openWindow("paint-window");
+
+function setupStartMenuAndPowerOff() {
+    const startBtn = document.querySelector(".start");
+    const startMenu = document.getElementById("start-menu");
+    const powerOffBtn = document.getElementById("btn-power-off");
+    const authDialog = document.getElementById("shutdown-auth-dialog");
+    const authClose = document.getElementById("close-auth-dialog");
+    const authCancel = document.getElementById("btn-auth-cancel");
+    const authConfirm = document.getElementById("btn-auth-confirm");
+    const pinInput = document.getElementById("shutdown-pin-input");
+    const errMsg = document.getElementById("auth-error-msg");
+    const shutdownOverlay = document.getElementById("cinematic-shutdown-overlay");
+    const glitchScreen = document.getElementById("shutdown-glitch-screen");
+    const creditsContainer = document.getElementById("cinematic-credits-container");
+
+    if (!startBtn || !startMenu) return;
+
+    // Toggle Start Menu
+    startBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        startMenu.classList.toggle("active");
+    });
+
+    // Close Start Menu on click outside
+    document.addEventListener("click", (e) => {
+        if (startMenu.classList.contains("active") && !startMenu.contains(e.target) && e.target !== startBtn) {
+            startMenu.classList.remove("active");
+        }
+    });
+
+    // Open windows from Start Menu items
+    startMenu.querySelectorAll("[data-open-window]").forEach(item => {
+        item.addEventListener("click", () => {
+            const winId = item.dataset.openWindow;
+            openWindow(winId);
+            startMenu.classList.remove("active");
+        });
+    });
+
+    // Power Off Click
+    powerOffBtn.addEventListener("click", () => {
+        startMenu.classList.remove("active");
+        authDialog.style.display = "flex";
+        pinInput.value = "";
+        pinInput.focus();
+        errMsg.style.display = "none";
+    });
+
+    // Cancel Dialog
+    function closeDialog() {
+        authDialog.style.display = "none";
+        pinInput.value = "";
+        errMsg.style.display = "none";
+    }
+
+    authClose.addEventListener("click", closeDialog);
+    authCancel.addEventListener("click", closeDialog);
+
+    // Auth Submission
+    function handleAuthSubmit() {
+        const pin = pinInput.value.trim().toLowerCase();
+        // Allow both "0000" (user requested) and "jv88d9" (CTF decrypted key)
+        if (pin === "0000" || pin === "jv88d9") {
+            closeDialog();
+            runCinematicShutdown();
+        } else {
+            errMsg.style.display = "block";
+            // Shake effect
+            const box = authDialog.querySelector(".auth-dialog-box");
+            box.style.transform = "translateX(10px)";
+            setTimeout(() => box.style.transform = "translateX(-10px)", 70);
+            setTimeout(() => box.style.transform = "translateX(5px)", 140);
+            setTimeout(() => box.style.transform = "translateX(-5px)", 210);
+            setTimeout(() => box.style.transform = "translateX(0)", 280);
+        }
+    }
+
+    authConfirm.addEventListener("click", handleAuthSubmit);
+    pinInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            handleAuthSubmit();
+        }
+    });
+
+    // Cinematic Shutdown Sequence
+    function runCinematicShutdown() {
+        shutdownOverlay.style.display = "flex";
+        
+        // Glitch screen effect
+        let glitchCount = 0;
+        const glitchInterval = setInterval(() => {
+            glitchScreen.style.opacity = glitchScreen.style.opacity === "0" ? "0.8" : "0";
+            glitchCount++;
+            if (glitchCount >= 10) {
+                clearInterval(glitchInterval);
+                glitchScreen.style.opacity = "0";
+                startCredits();
+            }
+        }, 70);
+    }
+
+    function startCredits() {
+        creditsContainer.style.opacity = "1";
+        creditsContainer.style.transition = "opacity 1.5s ease";
+
+        const slides = [
+            `
+                <div style="font-size: 13px; color: #ef4444; margin-bottom: 20px; font-weight: bold; letter-spacing: 2px; font-family: monospace;">
+                    [ SYSTEM SHUTDOWN INITIALIZED ]
+                </div>
+                <div style="font-size: 9.5px; color: #94a3b8; text-align: left; display: inline-block; width: 280px; font-family: monospace; line-height: 1.6;">
+                    &gt; Terminating Spring Boot nodes... OK<br>
+                    &gt; Disconnecting AWS Master-Trail... OK<br>
+                    &gt; Revoking CTF authorization keys... OK<br>
+                    &gt; Flushing virtual RAM cache... OK<br>
+                    &gt; Unmounting Deploy OS cores... OK
+                </div>
+            `,
+            `
+                <div style="font-size: 26px; color: #00ff66; font-weight: bold; margin-bottom: 12px; text-shadow: 0 0 10px rgba(0, 255, 102, 0.4); font-family: monospace;">
+                    DEPLOY OS
+                </div>
+                <div style="font-size: 11px; color: #64748b; letter-spacing: 2px; font-family: monospace;">
+                    v1.0.0 Stable Release
+                </div>
+            `,
+            `
+                <div style="font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; font-family: monospace;">
+                    Designed & Engineered By
+                </div>
+                <div style="font-size: 22px; color: #ffffff; font-weight: 800; letter-spacing: 1px; font-family: monospace;">
+                    Avula Jeevan Yadav
+                </div>
+                <div style="font-size: 11.5px; color: #3b82f6; font-weight: bold; margin-top: 6px; font-family: monospace;">
+                    Cloud & DevOps Engineer
+                </div>
+            `,
+            `
+                <div style="font-size: 18px; color: #00d4ff; font-weight: bold; margin-bottom: 12px; letter-spacing: 1px; font-family: monospace;">
+                    Thank You For Watching!
+                </div>
+                <div style="font-size: 10px; color: #cbd5e1; max-width: 320px; margin: 0 auto; line-height: 1.5; font-family: monospace;">
+                    "Automating complex operations, one container at a time."
+                </div>
+                <button id="btn-credits-reboot" type="button" style="margin-top: 30px; background: transparent; border: 1px solid #00ff66; border-radius: 4px; color: #00ff66; padding: 8px 24px; font-family: monospace; font-size: 11px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 0 8px rgba(0,255,66,0.2);">
+                    ⚡ REBOOT SYSTEM
+                </button>
+            `
+        ];
+
+        let currentSlide = 0;
+
+        function showNextSlide() {
+            if (currentSlide >= slides.length) {
+                return;
+            }
+
+            creditsContainer.style.opacity = "0";
+
+            setTimeout(() => {
+                creditsContainer.innerHTML = slides[currentSlide];
+                
+                if (currentSlide === slides.length - 1) {
+                    const rebootBtn = document.getElementById("btn-credits-reboot");
+                    if (rebootBtn) {
+                        rebootBtn.addEventListener("click", () => {
+                            window.location.reload();
+                        });
+                        rebootBtn.style.cursor = "pointer";
+                    }
+                }
+
+                creditsContainer.style.opacity = "1";
+                currentSlide++;
+
+                if (currentSlide < slides.length) {
+                    setTimeout(showNextSlide, 3500);
+                }
+            }, 1000);
+        }
+
+        creditsContainer.innerHTML = slides[currentSlide];
+        creditsContainer.style.opacity = "1";
+        currentSlide++;
+        setTimeout(showNextSlide, 3500);
+    }
+}

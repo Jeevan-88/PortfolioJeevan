@@ -1,0 +1,62 @@
+/* ============================================
+   Skills Sticky Notes Overlay
+   Handwritten marker text on anime fridge notes
+   ============================================ */
+
+.skills-notes-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    display: none;
+    perspective: 1200px;
+}
+
+.sticky-note-content {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    padding: 1% 2%;
+    opacity: 0;
+    overflow: visible;
+    transform-origin: center center;
+    mix-blend-mode: multiply;
+    font-family: 'Caveat', cursive;
+    color: #1a2233; /* Dark navy felt marker color */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.sticky-heading {
+    font-size: 0.78vw;
+    font-weight: 700;
+    color: #0b111e;
+    line-height: 1.05;
+    text-decoration: underline;
+    text-underline-offset: 1.5px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    letter-spacing: 0.1px;
+}
+
+.sticky-skill {
+    font-size: 0.56vw;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #242d3d;
+    white-space: nowrap;
+    letter-spacing: -0.1px;
+}
+
+@media (max-width: 1024px) {
+    .sticky-heading { font-size: 1.7vw; }
+    .sticky-skill { font-size: 1.25vw; }
+}
+
+@media (max-width: 768px) {
+    .sticky-heading { font-size: 2.2vw; }
+    .sticky-skill { font-size: 1.7vw; }
+}

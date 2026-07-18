@@ -1,0 +1,276 @@
+/* ============================================
+   CTF Cyber Security Hacking Quest Styles
+   ============================================ */
+
+/* Window override for My Computer and Claim Folder */
+.ctf-window {
+    width: min(520px, 100vw - 20px);
+    height: min(420px, 100vh - 90px);
+    top: 100px;
+    left: 80px;
+    background: #c0c0c0;
+    box-shadow: 6px 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.ctf-window[hidden] {
+    display: none;
+}
+
+.ctf-window-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: #c0c0c0;
+    min-height: 0;
+    position: relative;
+}
+
+/* File explorer grid layout */
+.file-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 15px;
+    padding: 10px;
+    background: #fff;
+    border: 2px solid #fff;
+    border-color: #808080 #fff #fff #808080;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.file-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.file-item:hover {
+    background: rgba(0, 0, 128, 0.08);
+    border-color: rgba(0, 0, 128, 0.2);
+}
+
+.file-item.selected {
+    background: #000080;
+    color: #fff;
+    border-color: #000080;
+}
+
+.file-item img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+.file-item span {
+    font-size: 11px;
+    word-break: break-all;
+    line-height: 1.2;
+}
+
+/* Lockscreen secure prompt */
+.ctf-lock-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    border: 2px solid #808080;
+    border-color: #808080 #fff #fff #808080;
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.ctf-lock-icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+    animation: ctf-pulse 1.5s infinite alternate;
+}
+
+@keyframes ctf-pulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 2px #00ff00); }
+    100% { transform: scale(1.1); filter: drop-shadow(0 0 10px #00ff00); }
+}
+
+.ctf-lock-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.ctf-lock-desc {
+    font-size: 11px;
+    color: #88ff88;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    max-width: 320px;
+}
+
+.ctf-lock-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.ctf-passcode-input {
+    background: #000;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    width: 160px;
+    padding: 6px 0;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.4);
+}
+
+.ctf-decrypt-btn {
+    background: #c0c0c0;
+    color: #000;
+    border: 2px solid #fff;
+    border-color: #fff #808080 #808080 #fff;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 16px;
+    cursor: pointer;
+}
+
+.ctf-decrypt-btn:active {
+    border-color: #808080 #fff #fff #808080;
+}
+
+.ctf-error-msg {
+    color: #ff3333;
+    font-size: 11px;
+    margin-top: 10px;
+    min-height: 14px;
+    font-weight: bold;
+}
+
+/* Claims Certificate Generator Terminal Overlay */
+.ctf-terminal-overlay {
+    position: absolute;
+    inset: 0;
+    background: #080c10;
+    color: #dfe6e9;
+    font-family: 'Courier New', Courier, monospace;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.ctf-terminal-header {
+    border-bottom: 1px solid #334e68;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    color: #00d2fc;
+    font-weight: bold;
+}
+
+.ctf-terminal-output {
+    flex: 1;
+    font-size: 11px;
+    line-height: 1.4;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+}
+
+.ctf-terminal-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ctf-terminal-input {
+    background: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: inherit;
+    font-size: 12px;
+    outline: none;
+    flex: 1;
+}
+
+/* Certificate Modal View */
+.ctf-cert-view {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.ctf-cert-canvas {
+    max-width: 100%;
+    max-height: 72%;
+    background: #fff;
+    border: 4px solid #ffd700;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.ctf-cert-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 12px;
+}
+
+/* Popup overlay window for simple text file reader */
+.ctf-text-viewer {
+    position: absolute;
+    inset: 10px;
+    background: #ffffe1;
+    border: 1px solid #808080;
+    color: #000;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    z-index: 15;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.ctf-text-header {
+    border-bottom: 1px solid #808080;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ctf-text-close {
+    cursor: pointer;
+    color: red;
+}
+
+.ctf-text-content {
+    flex: 1;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    line-height: 1.4;
+}

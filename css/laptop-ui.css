@@ -1,0 +1,389 @@
+/* ============================================
+   Laptop UI Stylesheet
+   Retro-futuristic anime OS style interactive screen
+   ============================================ */
+
+.laptop-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 800px;
+    height: 500px;
+    z-index: 25;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    overflow: hidden;
+    transform-origin: 0 0;
+    background: #080b11;
+    color: #c5d1e6;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 8px;
+    box-shadow: inset 0 0 40px rgba(0, 180, 255, 0.2);
+}
+
+.laptop-overlay.active {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+/* Scanlines and screen flicker for cyber-retro feel */
+.laptop-screen-glass {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    opacity: 0.45;
+}
+
+.laptop-screen-glass::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: radial-gradient(circle, rgba(16, 80, 120, 0.05) 0%, rgba(0, 0, 0, 0.4) 100%);
+    opacity: 0.8;
+}
+
+/* System Titlebar */
+.laptop-header {
+    height: 32px;
+    background: #0f1422;
+    border-bottom: 2px solid #00d4ff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #00d4ff;
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+    flex-shrink: 0;
+}
+
+.laptop-sys-status {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.sys-dot {
+    width: 6px;
+    height: 6px;
+    background: #00ff66;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px #00ff66;
+    animation: sys-blink 1.2s infinite;
+}
+
+@keyframes sys-blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* Layout container */
+.laptop-layout {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+/* Sidebar Tabs */
+.laptop-sidebar {
+    width: 160px;
+    background: #0a0d18;
+    border-right: 1px solid #1a2238;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    flex-shrink: 0;
+}
+
+.laptop-tab-btn {
+    background: transparent;
+    border: none;
+    color: #6c7d9c;
+    padding: 10px 16px;
+    text-align: left;
+    font-family: inherit;
+    font-size: 11px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.laptop-tab-btn:hover {
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.04);
+}
+
+.laptop-tab-btn.active {
+    color: #fff;
+    background: rgba(0, 212, 255, 0.08);
+    border-left-color: #00d4ff;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+/* Main Display Area */
+.laptop-main {
+    flex: 1;
+    height: 100%;
+    background: #060913;
+    position: relative;
+    overflow: hidden;
+}
+
+.laptop-content-panel {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.laptop-content-panel.active {
+    display: flex;
+}
+
+/* ─────────────────────────────────────────
+   Tab 1: Cloud Sentry UI
+   ───────────────────────────────────────── */
+.terminal-card {
+    background: #020408;
+    border: 1px solid #00ff66;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 10.5px;
+    color: #33ff33;
+    margin-bottom: 12px;
+    height: 150px;
+    overflow-y: auto;
+    box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.1);
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.status-box {
+    background: #0b1121;
+    border: 1px solid #1a2c4e;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+}
+
+.status-label {
+    font-size: 9px;
+    color: #6b84ab;
+    text-transform: uppercase;
+}
+
+.status-val {
+    font-size: 14px;
+    font-weight: bold;
+    color: #00d4ff;
+    margin-top: 4px;
+}
+
+/* ─────────────────────────────────────────
+   Tab 2: DeployPilot UI
+   ───────────────────────────────────────── */
+.deploy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1a2c4e;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.pipeline-node {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #0b1121;
+    border: 1px solid #1a2c4e;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-size: 11px;
+}
+
+.node-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.node-status.success {
+    background: #00ff66;
+    box-shadow: 0 0 6px #00ff66;
+}
+
+.node-status.running {
+    background: #ffb703;
+    box-shadow: 0 0 6px #ffb703;
+    animation: pulse 1s infinite alternate;
+}
+
+/* ─────────────────────────────────────────
+   Tab 3: Retro Game UI
+   ───────────────────────────────────────── */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#game-canvas {
+    background: #000;
+    border: 2px solid #00d4ff;
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.25);
+    cursor: crosshair;
+}
+
+.game-start-btn {
+    background: #00d4ff;
+    color: #000;
+    border: none;
+    padding: 8px 24px;
+    font-family: inherit;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+    transition: all 0.15s ease;
+}
+
+.game-start-btn:hover {
+    background: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* ─────────────────────────────────────────
+   Tab 2 Upgrade: White Mini Browser UI
+   ───────────────────────────────────────── */
+.mini-browser-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 250px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #abb9cb;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.mini-browser-toolbar {
+    background: #e2e8f0;
+    border-bottom: 1px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    flex-shrink: 0;
+}
+
+.mini-browser-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.mini-browser-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.mini-browser-dot.red { background: #ff5f56; }
+.mini-browser-dot.yellow { background: #ffbd2e; }
+.mini-browser-dot.green { background: #27c93f; }
+
+.mini-browser-address-bar {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 9px;
+    color: #475569;
+    padding: 2px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mini-browser-viewport {
+    flex: 1;
+    background: #ffffff;
+    color: #1e293b;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 14px;
+    font-size: 10px;
+    line-height: 1.45;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.mini-browser-hero {
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.mini-browser-hero h3 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.mini-browser-hero p {
+    margin: 2px 0 0 0;
+    color: #64748b;
+    font-size: 9px;
+}
+
+.mini-browser-projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.mini-browser-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 6px 8px;
+    background: #f8fafc;
+}
+
+.mini-browser-card h4 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.mini-browser-card p {
+    margin: 2px 0 0 0;
+    color: #64748b;
+    font-size: 8px;
+    line-height: 1.3;
+}
+

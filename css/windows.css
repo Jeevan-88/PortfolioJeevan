@@ -73,12 +73,12 @@
 }
 
 .browser-titlebar {
-    height: 38px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 6px 7px 6px 13px;
+    padding: 3px 7px 3px 13px;
     color: #fff;
     background:
         linear-gradient(180deg, rgba(255, 255, 255, .18), transparent 42%),
@@ -112,12 +112,12 @@
 }
 
 .browser-tabs {
-    height: 46px;
+    height: 32px;
     display: flex;
     align-items: end;
-    gap: 5px;
+    gap: 4px;
     overflow-x: auto;
-    padding: 8px 10px 0;
+    padding: 4px 10px 0;
     background:
         linear-gradient(180deg, rgba(255, 255, 255, .3), transparent 52%),
         linear-gradient(90deg, #1b2b46, #284d77 54%, #1a6e88);
@@ -125,9 +125,9 @@
 }
 
 .browser-tabs button {
-    min-width: 112px;
-    height: 33px;
-    padding: 0 12px;
+    min-width: 90px;
+    height: 26px;
+    padding: 0 10px;
     border: 1px solid rgba(255, 255, 255, .24);
     border-bottom: 0;
     border-radius: 12px 12px 0 0;
@@ -137,14 +137,14 @@
         rgba(11, 24, 42, .58);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16);
     font: inherit;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
 }
 
 .browser-tabs button.active {
-    height: 38px;
+    height: 30px;
     color: #123055;
     background:
         linear-gradient(180deg, #ffffff, #eaf3ff 72%, #d7e7f7);
@@ -155,12 +155,12 @@
 }
 
 .browser-toolbar {
-    height: 58px;
+    height: 38px;
     display: grid;
-    grid-template-columns: 36px 36px 36px 36px minmax(0, 1fr) 92px;
+    grid-template-columns: 28px 28px 28px 28px minmax(0, 1fr) 72px;
     align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
+    gap: 5px;
+    padding: 4px 8px;
     background:
         linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(223, 235, 249, .96)),
         #edf4fb;
@@ -872,4 +872,159 @@
 @keyframes sequence-spin {
     to { transform: rotate(360deg); }
 }
+
+/* Watermark cover overlay — positioned precisely over the Grok watermark */
+.scroll-hint-overlay {
+    position: absolute;
+    bottom: 2%;
+    right: 1%;
+    width: 14.5%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    z-index: 20;
+    pointer-events: none;
+    background: rgba(5, 8, 16, 0.35);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-hint-text {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: scroll-hint-pulse 2.5s ease-in-out infinite;
+}
+
+/* Mouse scroll icon */
+.scroll-mouse-icon {
+    width: 16px;
+    height: 26px;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    position: relative;
+    flex-shrink: 0;
+    transition: border-color 0.2s ease;
+}
+
+.scroll-mouse-icon.scrolling {
+    border-color: rgba(255, 255, 255, 0.65);
+}
+
+.scroll-mouse-icon::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 2px;
+    animation: scroll-wheel-move 1.4s ease-in-out infinite;
+}
+
+@keyframes scroll-hint-pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+@keyframes scroll-wheel-move {
+    0% { top: 5px; opacity: 1; }
+    100% { top: 14px; opacity: 0; }
+}
+
+/* About Me scrollable text overlay (Cinematic transparent text) */
+.aboutme-text-overlay {
+    position: absolute;
+    left: 28%;
+    width: 44%;
+    top: 0;
+    height: 100%;
+    z-index: 15;
+    pointer-events: none;
+    overflow: hidden;
+    background: transparent;
+    perspective: 800px;
+}
+
+.aboutme-text-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.aboutme-slide {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 35%;
+    transform-origin: center center;
+    opacity: 0;
+    display: none;
+    transform-style: preserve-3d;
+    transition: opacity 0.1s linear, transform 0.1s linear;
+}
+
+.aboutme-slide p {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0;
+    text-align: center;
+    text-shadow: 
+        0 2px 12px rgba(0, 0, 0, 0.95),
+        0 0 20px rgba(0, 0, 0, 0.95);
+    font-family: sans-serif;
+}
+
+.aboutme-slide ul {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0 0;
+    align-items: center;
+}
+
+.aboutme-slide li {
+    font-size: 14px;
+    color: #ffb703;
+    line-height: 1.5;
+    text-align: center;
+    text-shadow: 
+        0 2px 10px rgba(0, 0, 0, 0.95),
+        0 0 14px rgba(0, 0, 0, 0.95);
+    font-family: sans-serif;
+}
+
+/* Mobile responsive widths for About Me overlay */
+@media (max-width: 768px) {
+    .aboutme-text-overlay {
+        left: 8%;
+        width: 84%;
+    }
+    .aboutme-slide {
+        top: 30%;
+    }
+    .aboutme-slide p {
+        font-size: 13px;
+    }
+    .aboutme-slide li {
+        font-size: 12px;
+    }
+}
+
 
