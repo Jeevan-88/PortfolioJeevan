@@ -15,10 +15,9 @@
 
     /* ── DOM references ── */
     const panel      = document.querySelector('[data-browser-panel="whoami"]');
-    const container  = document.getElementById('whoami-canvas-container');
-    const canvas     = document.getElementById('whoami-canvas');
-    const loadingEl  = document.getElementById('whoami-loading');
-    const nameReveal = document.getElementById('whoami-name-reveal');
+    const container  = document.querySelector('.whoami-video-shell');
+    const canvas     = document.getElementById('whoami-sequence-canvas');
+    const loadingEl  = document.querySelector('[data-whoami-status]');
 
     if (!panel || !container || !canvas) return;
 
@@ -57,11 +56,8 @@
                 
                 /* Update loading percentage */
                 if (loadingEl) {
-                    const span = loadingEl.querySelector('span');
-                    if (span) {
-                        const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
-                        span.textContent = `Preloading animation… ${pct}%`;
-                    }
+                    const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
+                    loadingEl.textContent = `Preloading animation… ${pct}%`;
                 }
 
                 if (loadedCount === TOTAL_FRAMES) {
